@@ -1,0 +1,167 @@
+{
+  "runDate": "2026-11-05",
+  "commands": [
+    {
+      "gate": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 3.05,
+      "evidence": "docs/evidence/typecheck.log"
+    },
+    {
+      "gate": "unit",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--reporter=json",
+        "--outputFile=docs/evidence/unit-tests.json"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 2.79,
+      "evidence": "docs/evidence/unit-tests.log"
+    },
+    {
+      "gate": "database",
+      "command": [
+        "npm",
+        "run",
+        "test:db",
+        "--",
+        "--reporter=json",
+        "--outputFile=docs/evidence/integration-tests.json"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 15.88,
+      "evidence": "docs/evidence/integration-tests.log"
+    },
+    {
+      "gate": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 9.42,
+      "evidence": "docs/evidence/production-build.log"
+    },
+    {
+      "gate": "browser_collection",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--list"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.75,
+      "evidence": "docs/evidence/e2e-collection.log"
+    },
+    {
+      "gate": "replay_evaluation",
+      "command": [
+        "npm",
+        "run",
+        "eval"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 1.14,
+      "evidence": "docs/evidence/evaluation-replay.log"
+    },
+    {
+      "gate": "live_evaluation",
+      "command": [
+        "npm",
+        "run",
+        "eval",
+        "--",
+        "--live"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.95,
+      "evidence": "docs/evidence/evaluation-live.log"
+    },
+    {
+      "gate": "provider_preflight",
+      "command": [
+        "npm",
+        "run",
+        "preflight"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.72,
+      "evidence": "docs/evidence/provider-preflight.log"
+    },
+    {
+      "gate": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 7.77,
+      "evidence": "docs/evidence/dependency-audit.json"
+    },
+    {
+      "gate": "cold_process_persistence",
+      "command": [
+        "node",
+        "--env-file=.env.local",
+        "--import",
+        "tsx",
+        "scripts/smoke-local.ts",
+        "--verify"
+      ],
+      "exitCode": 0,
+      "evidence": "docs/evidence/persistence-smoke.json"
+    },
+    {
+      "gate": "git_whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "browserTestsExecuted": false,
+  "realProviderRequestsVerified": false,
+  "unit": {
+    "numTotalTests": 77,
+    "numPassedTests": 77,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTotalTestSuites": 10,
+    "numPassedTestSuites": 10,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "database": {
+    "numTotalTests": 50,
+    "numPassedTests": 47,
+    "numFailedTests": 0,
+    "numPendingTests": 3,
+    "numTotalTestSuites": 8,
+    "numPassedTestSuites": 8,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "dependencyAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  }
+}

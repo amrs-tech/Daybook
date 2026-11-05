@@ -1,0 +1,53 @@
+{
+  "name": "daybook-agent",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run tests/unit",
+    "test:db": "vitest run tests/integration --fileParallelism=false",
+    "test:e2e": "playwright test",
+    "setup:local": "node scripts/setup-local.mjs",
+    "db:migrate": "node --env-file-if-exists=.env.local --import tsx scripts/migrate.ts",
+    "eval": "node --env-file-if-exists=.env.local --import tsx scripts/evaluate.ts",
+    "preflight": "node --env-file-if-exists=.env.local --import tsx scripts/preflight.ts",
+    "format": "prettier --write app lib scripts tests fixtures *.ts *.json *.mjs docs/*.md README.md IMPLEMENTATION_CHECKLIST.md BUILD_EVIDENCE.md"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.15",
+    "@google/genai": "2.32.0",
+    "@langchain/langgraph": "1.7.0",
+    "@langfuse/otel": "6.1.1",
+    "@langfuse/tracing": "6.1.1",
+    "@opentelemetry/api": "1.9.1",
+    "@opentelemetry/sdk-trace-node": "2.12.0",
+    "@supabase/supabase-js": "2.119.0",
+    "lucide-react": "1.69.0",
+    "next": "16.4.5",
+    "openai": "7.51.0",
+    "pg": "8.23.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/postcss": "4.3.4",
+    "@types/node": "26.6.6",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.4",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  }
+}

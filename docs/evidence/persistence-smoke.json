@@ -1,0 +1,11 @@
+{
+  "status": "verified_after_process_restart",
+  "provider": "deterministic-fixture-replay-v1",
+  "receiptId": "7f9f6938-b23d-4cac-95eb-523444b72671",
+  "entryIds": [
+    "e3b02288-29a5-4022-83c0-a8e918d69994"
+  ],
+  "canonicalEntryCount": 8,
+  "realMoneyMovement": false,
+  "checkedAt": "2026-11-05T15:47:46.797Z"
+}

@@ -1,0 +1,15 @@
+
+> daybook-agent@2.1.0 test:e2e
+> playwright test --list
+
+Listing tests:
+  daybook.spec.ts:9:1 › three proposed expenses require edits, approve once, survive refresh
+  daybook.spec.ts:39:1 › a changed transcript disables approval of an old preview
+  daybook.spec.ts:54:1 › voice missing-provider state preserves the typed alternative
+  daybook.spec.ts:62:1 › mobile layout keeps primary content within the viewport
+  daybook.spec.ts:80:1 › run details expose separate Planner and Writer proposals
+  daybook.spec.ts:94:1 › rejecting a batch leaves journal history unchanged
+  daybook.spec.ts:103:1 › a different browser session cannot read the current draft
+Total: 7 tests in 1 file
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

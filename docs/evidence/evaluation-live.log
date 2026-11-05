@@ -1,0 +1,7 @@
+
+> daybook-agent@2.1.0 eval
+> node --env-file-if-exists=.env.local --import tsx scripts/evaluate.ts --live
+
+{"path":"docs/evidence/evaluation-live.json","measured":0,"failed":0,"blocked":72,"notRun":0,"dataset":72,"mode":"actual_gemini"}
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

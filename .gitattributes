@@ -1,0 +1,2 @@
+# Preserve raw command logs, including terminal progress-line whitespace.
+docs/evidence/*.log -whitespace

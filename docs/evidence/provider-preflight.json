@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-05T15:45:54.062Z",
+  "gemini": {
+    "status": "blocked",
+    "reason": "GEMINI_API_KEY and/or GEMINI_MODEL_ID absent"
+  },
+  "elevenlabs": {
+    "status": "blocked",
+    "reason": "ELEVENLABS_API_KEY absent"
+  },
+  "langfuse": {
+    "status": "blocked",
+    "reason": "Langfuse credentials absent"
+  },
+  "supabase": {
+    "status": "blocked",
+    "reason": "Supabase URL/key and hosted database connection absent"
+  },
+  "vercel": {
+    "status": "blocked",
+    "reason": "No Vercel deployment credential/project was provided"
+  }
+}

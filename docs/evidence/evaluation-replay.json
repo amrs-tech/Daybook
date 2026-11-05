@@ -1,0 +1,487 @@
+{
+  "fixtureVersion": "daybook-eval-v2.1.1",
+  "generatedAt": "2026-11-05T15:45:52.383Z",
+  "mode": "deterministic_fixture_replay",
+  "modelId": "deterministic-fixture-replay-v1",
+  "promptVersions": [
+    "daybook-planner-v2.1",
+    "daybook-writer-v2.1"
+  ],
+  "datasetSize": 72,
+  "holdoutSize": 15,
+  "mockedVoiceScripts": 15,
+  "note": "Mock measurements verify fixture plumbing only. They do not measure LLM reasoning or STT accuracy.",
+  "counts": {
+    "measured": 8,
+    "failed": 0,
+    "blocked": 0,
+    "notRun": 64
+  },
+  "metrics": {
+    "operationSequenceExact": {
+      "correct": 8,
+      "denominator": 8
+    },
+    "criticalFieldsExact": {
+      "correct": 2,
+      "denominator": 2
+    },
+    "clarificationRecall": {
+      "correct": 5,
+      "denominator": 5
+    },
+    "p50LatencyMs": 7,
+    "p95LatencyMs": 41,
+    "sttAccuracy": null,
+    "unsupportedAssumptionRate": null,
+    "ledgerCorrectness": "See separately executed SQL/API integration tests; no financial mutation in this eval script"
+  },
+  "outcomes": [
+    {
+      "id": "E001",
+      "status": "measured",
+      "expectedKinds": [
+        "expense",
+        "expense",
+        "expense"
+      ],
+      "predictedKinds": [
+        "expense",
+        "expense",
+        "expense"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": true,
+      "latencyMs": 41,
+      "modelCalls": 2
+    },
+    {
+      "id": "E002",
+      "status": "measured",
+      "expectedKinds": [
+        "transfer"
+      ],
+      "predictedKinds": [
+        "transfer"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": false,
+      "clarificationDetected": false,
+      "criticalFieldsExact": true,
+      "latencyMs": 9,
+      "modelCalls": 2
+    },
+    {
+      "id": "E003",
+      "status": "measured",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "latencyMs": 7,
+      "modelCalls": 2
+    },
+    {
+      "id": "E004",
+      "status": "measured",
+      "expectedKinds": [
+        "shared_payment",
+        "settle_claim"
+      ],
+      "predictedKinds": [
+        "shared_payment",
+        "settle_claim"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "latencyMs": 7,
+      "modelCalls": 2
+    },
+    {
+      "id": "E005",
+      "status": "measured",
+      "expectedKinds": [
+        "undo"
+      ],
+      "predictedKinds": [
+        "undo"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "latencyMs": 7,
+      "modelCalls": 2
+    },
+    {
+      "id": "E006",
+      "status": "measured",
+      "expectedKinds": [],
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "mustClarify": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "latencyMs": 4,
+      "modelCalls": 2
+    },
+    {
+      "id": "E007",
+      "status": "measured",
+      "expectedKinds": [],
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "mustClarify": false,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "latencyMs": 6,
+      "modelCalls": 2
+    },
+    {
+      "id": "E008",
+      "status": "measured",
+      "expectedKinds": [
+        "expense"
+      ],
+      "predictedKinds": [
+        "expense"
+      ],
+      "operationSequenceExact": true,
+      "mustClarify": false,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "latencyMs": 5,
+      "modelCalls": 2
+    },
+    {
+      "id": "E009",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E010",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E011",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E012",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E013",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E014",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E015",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E016",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E017",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E018",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E019",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E020",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E021",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E022",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E023",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E024",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E025",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E026",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E027",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E028",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E029",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E030",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E031",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E032",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E033",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E034",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E035",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E036",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E037",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E038",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E039",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E040",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E041",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E042",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E043",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E044",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E045",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E046",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E047",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E048",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E049",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E050",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E051",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E052",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E053",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E054",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E055",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E056",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E057",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E058",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E059",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E060",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E061",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E062",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E063",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E064",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E065",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E066",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E067",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E068",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E069",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E070",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E071",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    },
+    {
+      "id": "E072",
+      "status": "not_run",
+      "reason": "No fixture replay; reserved for actual model evaluation"
+    }
+  ]
+}

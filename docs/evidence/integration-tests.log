@@ -1,0 +1,7 @@
+
+> daybook-agent@2.1.0 test:db
+> vitest run tests/integration --fileParallelism=false --reporter=json --outputFile=docs/evidence/integration-tests.json
+
+JSON report written to /workspace/sites/daybook-agent-v21/docs/evidence/integration-tests.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
