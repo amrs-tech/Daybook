@@ -7,3 +7,18 @@ coverage/
 playwright-report/
 test-results/
 *.tsbuildinfo
+
+# Deployment account links and local credentials
+.vercel/
+.envrc
+.npmrc
+.pypirc
+credentials*.json
+secrets*.json
+*credentials*.local*
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+!.env.example
