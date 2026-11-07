@@ -41,10 +41,12 @@ Keep the existing dedicated Supabase project and its applied migrations and `day
 The current local connection is direct. For the serverless deployment, open Supabase → **Connect → Transaction pooler** and copy its actual host and connection format. Use the restricted backend role, not the administrator:
 
 ```text
-postgresql://daybook_backend.PROJECT_REF:URL_ENCODED_ROLE_PASSWORD@POOLER_HOST:6543/postgres?sslmode=require
+postgresql://daybook_backend.PROJECT_REF:URL_ENCODED_ROLE_PASSWORD@POOLER_HOST:6543/postgres?sslmode=verify-full
 ```
 
-Replace the placeholders locally using the connection details shown by your own project. The password is the `daybook_backend` role password, which can differ from the project administrator password. URL-encode password characters once: for example, `@` becomes `%40`. Do not encode the whole URL or paste the password into chat.
+Replace the placeholders locally using the connection details shown by your own project. The password is the `daybook_backend` role password, which can differ from the project administrator password. URL-encode password characters once: `@` becomes `%40` and `#` becomes `%23`. An unencoded `#` breaks the URL and truncates an unquoted dotenv value. Do not encode the whole URL or paste the password into chat.
+
+Supabase connections use the bundled public `certs/supabase-root-2021.crt`, with certificate-chain and hostname verification enabled. Next.js includes this file in every API function. Do not disable TLS verification or paste a certificate path from your PC into Vercel. Use `daybook_backend.PROJECT_REF` and its role password; the default `postgres.PROJECT_REF` administrator connection is not the app login.
 
 This app uses parameterized, unnamed `pg` queries and transaction-local role/owner settings, rather than named prepared statements or session-persistent identity. That matches transaction pooling. Keep migrations on an administrator direct/session connection, outside Vercel builds.
 
@@ -138,7 +140,9 @@ The last Google response identified a 500-request daily free-tier limit for Lite
 | Symptom | Check |
 | --- | --- |
 | Login/mutation returns `INVALID_ORIGIN` | Open the stable production domain, match `APP_ORIGIN` exactly and redeploy after changing it |
-| Database unavailable | Pooler hostname/port, restricted-role password, URL encoding, TLS and project availability |
+| Database unavailable | Pooler hostname/port, `daybook_backend.PROJECT_REF`, that role’s password, percent-encoded `#`/`@`, TLS and project availability |
+| `DATABASE_CONFIGURATION_ERROR` | Malformed URL, unencoded password delimiters or a copied variable label inside the URL value |
+| `DATABASE_TLS_ERROR` | Ensure the deployment includes the official public CA and the new database configuration helper |
 | Login fails | Same Supabase project URL/key, confirmed test user, Email/password enabled |
 | AI quota error / HTTP 429 | Google AI Studio project's RPM/RPD; a deployment does not reset provider quota |
 | Voice HTTP 413 | Vercel's 4.5 MB body cap; use the built-in recorder |

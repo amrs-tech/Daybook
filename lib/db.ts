@@ -1,20 +1,13 @@
 import { Pool, type PoolClient } from "pg";
 import { DomainError } from "./errors";
+import { databasePoolConfig } from "./database-config";
 const globalDb = globalThis as unknown as { daybookPool?: Pool };
 export async function localDatabase() {
   const { localDatabase: load } = await import("./local-database");
   return load();
 }
 export function pool(): Pool {
-  if (!process.env.DATABASE_URL)
-    throw new DomainError("DATABASE_NOT_CONFIGURED", 503);
-  return (globalDb.daybookPool ??= new Pool({
-    connectionString: process.env.DATABASE_URL,
-    max: 5,
-    connectionTimeoutMillis: 8000,
-    statement_timeout: 15000,
-    idleTimeoutMillis: 10000,
-  }));
+  return (globalDb.daybookPool ??= new Pool(databasePoolConfig()));
 }
 /** Only verified server identities enter this transaction; never a body ownerId. */
 export async function asOwner<T>(
@@ -39,26 +32,69 @@ export async function asOwner<T>(
       }
     });
   }
-  const db = await pool().connect();
+  let db: PoolClient | undefined;
+  let inTransaction = false;
+  let releaseError: Error | undefined;
   try {
+    db = await pool().connect();
     await db.query("begin");
+    inTransaction = true;
     await db.query("set local role daybook_server");
     await db.query("select set_config('request.jwt.claim.sub',$1,true)", [
       ownerId,
     ]);
     const result = await fn(db);
     await db.query("commit");
+    inTransaction = false;
     return result;
   } catch (e) {
-    await db.query("rollback");
+    if (db) {
+      if (inTransaction) {
+        try {
+          await db.query("rollback");
+        } catch (rollbackError) {
+          releaseError =
+            rollbackError instanceof Error
+              ? rollbackError
+              : new Error("Database rollback failed");
+        }
+      } else
+        releaseError =
+          e instanceof Error
+            ? e
+            : new Error("Database transaction could not start");
+    }
     throw dbError(e);
   } finally {
-    db.release();
+    db?.release(releaseError);
   }
 }
 export function dbError(e: unknown): Error {
   if (e instanceof DomainError) return e;
-  const x = e as { code?: string; message?: string };
+  const x = (e && typeof e === "object" ? e : {}) as {
+    code?: string;
+    message?: string;
+  };
+  if (
+    [
+      "SELF_SIGNED_CERT_IN_CHAIN",
+      "DEPTH_ZERO_SELF_SIGNED_CERT",
+      "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+      "CERT_HAS_EXPIRED",
+      "ERR_TLS_CERT_ALTNAME_INVALID",
+    ].includes(x.code ?? "")
+  )
+    return new DomainError(
+      "DATABASE_TLS_ERROR",
+      503,
+      "The ledger database connection could not be verified. Contact the app administrator.",
+    );
+  if (x.code === "28P01")
+    return new DomainError(
+      "DATABASE_CONNECTION_AUTH_FAILED",
+      503,
+      "The ledger database credentials need attention. Contact the app administrator.",
+    );
   const safe = /^[A-Z][A-Z0-9_]+$/.test(x.message ?? "")
     ? x.message!
     : "DATABASE_OPERATION_FAILED";

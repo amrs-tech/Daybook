@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: { "/api/**": ["./certs/supabase-root-2021.crt"] },
   serverExternalPackages: [
     "pg",
     "@electric-sql/pglite",
