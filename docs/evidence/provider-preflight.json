@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-06T14:08:49.647Z",
+  "date": "2026-11-06T17:41:56.575Z",
   "gemini": {
-    "status": "blocked",
-    "reason": "GEMINI_API_KEY and/or GEMINI_MODEL_ID absent"
+    "status": "verified_schema_response",
+    "modelId": "gemini-3.1-flash-lite-preview"
   },
   "elevenlabs": {
     "status": "blocked",
-    "reason": "ELEVENLABS_API_KEY absent"
+    "reason": "Run an actual authorized audio transcription journey; key presence does not verify Scribe"
   },
   "langfuse": {
     "status": "blocked",
-    "reason": "Langfuse credentials absent"
+    "reason": "Export and then retrieve a real investigation trace; configuration alone is not proof"
   },
   "supabase": {
     "status": "blocked",
-    "reason": "Supabase URL/key and hosted database connection absent"
+    "reason": "Run two distinct authenticated sessions and hosted PostgreSQL tests"
   },
   "vercel": {
     "status": "blocked",

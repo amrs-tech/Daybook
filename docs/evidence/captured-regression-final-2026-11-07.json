@@ -1,0 +1,514 @@
+{
+  "generatedAt": "2026-11-06T19:46:10.789Z",
+  "mode": "captured_output_regression_not_live_AI",
+  "source": "docs/evidence/evaluation-fixed-2026-11-07.json",
+  "note": "No network requests. Applies final grounding, guards and validation to previously captured synthetic model outputs. This is separate from the live run and does not measure provider reliability.",
+  "passed": 72,
+  "failed": 0,
+  "outcomes": [
+    {
+      "id": "E001",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E002",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E003",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E004",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E005",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E006",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E007",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E008",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E009",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E010",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E011",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E012",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E013",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E014",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E015",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E016",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E017",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E018",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E019",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E020",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E021",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E022",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E023",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E024",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E025",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E026",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E027",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E028",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E029",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E030",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E031",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E032",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E033",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E034",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E035",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E036",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E037",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E038",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E039",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E040",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E041",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E042",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E043",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E044",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E045",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E046",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E047",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E048",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E049",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E050",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E051",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E052",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E053",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E054",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E055",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E056",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E057",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E058",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E059",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E060",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E061",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E062",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E063",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E064",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E065",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E066",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E067",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E068",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E069",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E070",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E071",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    },
+    {
+      "id": "E072",
+      "status": "passed",
+      "sequence": true,
+      "critical": true,
+      "requiredClarification": true
+    }
+  ]
+}

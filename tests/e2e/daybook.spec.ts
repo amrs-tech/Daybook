@@ -27,7 +27,13 @@ test("three proposed expenses require edits, approve once, survive refresh", asy
   await page
     .getByLabel("I reviewed these fields and approve the complete batch.")
     .check();
+  const posted = page.waitForResponse(
+    (response) =>
+      response.request().method() === "POST" &&
+      response.url().endsWith("/commit"),
+  );
   await approve.click();
+  expect((await posted).status()).toBe(200);
   await expect(
     page.getByText("Verified by reading the stored receipt and journal."),
   ).toBeVisible();

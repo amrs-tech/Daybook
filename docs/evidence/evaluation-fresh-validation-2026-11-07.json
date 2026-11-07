@@ -1,0 +1,2154 @@
+{
+  "fixtureVersion": "daybook-fresh-validation-v1",
+  "startedAt": "2026-11-06T19:36:13.462Z",
+  "modelId": "gemini-3.1-flash-lite",
+  "datasetSize": 12,
+  "selectedSize": 12,
+  "holdoutSize": 12,
+  "referenceInstant": "2026-11-05T16:00:00Z",
+  "intervalMs": 8000,
+  "parallelism": 1,
+  "automaticCaseRetries": 0,
+  "sdkAttemptsPerInvocation": 1,
+  "perRequestTimeoutMs": 25000,
+  "agentBudgetMs": 50000,
+  "executionRevision": "daybook-execution-v2.2",
+  "promptVersions": [
+    "daybook-planner-v2.1",
+    "daybook-writer-v2.1"
+  ],
+  "priorReport": "docs/evidence/evaluation-live-baseline-2026-11-06.json",
+  "notes": [
+    "Uses the actual production GeminiProvider and graph; only the fetch transport is observed.",
+    "Pacing is between cases, outside the 50-second agent budget. This run tests execution policy v2.2, 25-second requests, grounding and at most one transient retry within the three-call cap.",
+    "Synthetic fixture inputs and model outputs are retained for diagnosis; credentials, authorization headers, cookies and request URLs are not recorded.",
+    "No ledger writes; no fallback; no case retries. A transient retry or structural repair shares the same three-invocation cap."
+  ],
+  "updatedAt": "2026-11-06T19:38:16.060Z",
+  "complete": true,
+  "counts": {
+    "measured": 12,
+    "failed": 0,
+    "blocked": 0,
+    "remaining": 0
+  },
+  "errors": {},
+  "httpStatuses": {
+    "200": 19
+  },
+  "requestCount": 19,
+  "httpAttempts": 19,
+  "confirmed429Responses": 0,
+  "serverErrorResponses": 0,
+  "networkOrTimeoutErrors": 0,
+  "metrics": {
+    "operationSequenceExact": {
+      "correct": 12,
+      "denominator": 12
+    },
+    "criticalFieldsSemantic": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "criticalFieldsExact": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "clarificationRecall": {
+      "correct": 3,
+      "denominator": 3
+    }
+  },
+  "allApplicableMetricsPassed": 12,
+  "outcomes": [
+    {
+      "id": "F001",
+      "text": "Please record 185 rupees for breakfast using UPI from Everyday bank today.",
+      "expectedKinds": [
+        "expense"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:36:13.464Z",
+      "status": "measured",
+      "predictedKinds": [
+        "expense"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "expense",
+            "sourceExcerpt": "Please record 185 rupees for breakfast using UPI from Everyday bank today.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "185",
+              "method": "UPI",
+              "dateText": "today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "185",
+              "date": "today",
+              "account": "Everyday bank",
+              "method": "UPI",
+              "counterparty": null,
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "expense",
+            "fields": {
+              "amountText": "185",
+              "bookedOnText": "today",
+              "paymentMethod": "UPI",
+              "accountAlias": "Everyday bank",
+              "categoryHint": "breakfast",
+              "description": "breakfast"
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 6413,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 3369,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 9815,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:13.484Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6385
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "expense",
+                "sourceExcerpt": "Please record 185 rupees for breakfast using UPI from Everyday bank today.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "185",
+                  "method": "UPI",
+                  "dateText": "today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 6404
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:19.901Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 3334
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "185",
+                  "date": "today",
+                  "account": "Everyday bank",
+                  "method": "UPI",
+                  "counterparty": null,
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "expense",
+                "fields": {
+                  "amountText": "185",
+                  "bookedOnText": "today",
+                  "paymentMethod": "UPI",
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": "breakfast",
+                  "description": "breakfast"
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 3339
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "78cf51faeeecb914a43dbafb5a07d225a26f2089aa27ca1019ad7e226faf6c49"
+        },
+        {
+          "role": "writer",
+          "sha256": "e58591a3eded5b1f911bda876a7d3742095a3226027d73c8126a0e568aaab211"
+        }
+      ]
+    },
+    {
+      "id": "F002",
+      "text": "Today 12000 rupees of salary arrived in Everyday bank.",
+      "expectedKinds": [
+        "income"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:36:23.282Z",
+      "status": "measured",
+      "predictedKinds": [
+        "income"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "income",
+            "sourceExcerpt": "Today 12000 rupees of salary arrived in Everyday bank.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "12000",
+              "method": "Everyday bank",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "12000",
+              "date": "Today",
+              "account": "Everyday bank",
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "income",
+            "fields": {
+              "amountText": "12000",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Everyday bank",
+              "categoryHint": "salary",
+              "description": "salary"
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 7314,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 4978,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 12304,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:23.288Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7306
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "income",
+                "sourceExcerpt": "Today 12000 rupees of salary arrived in Everyday bank.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "12000",
+                  "method": "Everyday bank",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 7312
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:30.606Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 4965
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "12000",
+                  "date": "Today",
+                  "account": "Everyday bank",
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "income",
+                "fields": {
+                  "amountText": "12000",
+                  "bookedOnText": "Today",
+                  "paymentMethod": null,
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": "salary",
+                  "description": "salary"
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 4975
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "7aa62953d534501a57585a2421b5532e41a3dbbe98515ce237bf4ffd127827fc"
+        },
+        {
+          "role": "writer",
+          "sha256": "5dcf548757e701714baeb96336fa6ecc632e1e17869ac0d77fe78d049c32b31a"
+        }
+      ]
+    },
+    {
+      "id": "F003",
+      "text": "Today I moved 375 rupees out of Everyday bank into Cash wallet.",
+      "expectedKinds": [
+        "transfer"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:36:35.588Z",
+      "status": "measured",
+      "predictedKinds": [
+        "transfer"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "transfer",
+            "sourceExcerpt": "Today I moved 375 rupees out of Everyday bank into Cash wallet.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "375",
+              "method": null,
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "375",
+              "date": "Today",
+              "account": "Everyday bank",
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": "Cash wallet",
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "transfer",
+            "fields": {
+              "amountText": "375",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Everyday bank",
+              "categoryHint": null,
+              "description": "moved 375 rupees out of Everyday bank into Cash wallet",
+              "destinationAlias": "Cash wallet"
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 6920,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 2407,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 9337,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:35.593Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6915
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "transfer",
+                "sourceExcerpt": "Today I moved 375 rupees out of Everyday bank into Cash wallet.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "375",
+                  "method": null,
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 6919
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:42.515Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 2395
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "375",
+                  "date": "Today",
+                  "account": "Everyday bank",
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": "Cash wallet",
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "transfer",
+                "fields": {
+                  "amountText": "375",
+                  "bookedOnText": "Today",
+                  "paymentMethod": null,
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": null,
+                  "description": "moved 375 rupees out of Everyday bank into Cash wallet",
+                  "destinationAlias": "Cash wallet"
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 2402
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "c89ea4d82867de12dfefb44f13928b4af1e8da14842cd3c9afb2e7c26eb3f23b"
+        },
+        {
+          "role": "writer",
+          "sha256": "aaf842f3e51c79ef464b72c367d43e563ef8a687e9b9f74c606948ddf35672fb"
+        }
+      ]
+    },
+    {
+      "id": "F004",
+      "text": "Today I covered 960 rupees from Everyday bank for lunch; my part was 240 and Priya owes 720.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:36:44.928Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Today I covered 960 rupees from Everyday bank for lunch; my part was 240 and Priya owes 720.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "960",
+              "method": "Everyday bank",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "960",
+              "date": "Today",
+              "account": "Everyday bank",
+              "method": null,
+              "counterparty": "Priya",
+              "target": null,
+              "shares": "my part was 240 and Priya owes 720",
+              "personal": "240",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "960",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Everyday bank",
+              "categoryHint": "lunch",
+              "description": "lunch",
+              "personalShareText": "240",
+              "shares": [
+                {
+                  "contactAlias": "Priya",
+                  "amountText": "720"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 6901,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 2018,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 8926,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:44.931Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6896
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Today I covered 960 rupees from Everyday bank for lunch; my part was 240 and Priya owes 720.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "960",
+                  "method": "Everyday bank",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 6899
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:51.835Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 2010
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "960",
+                  "date": "Today",
+                  "account": "Everyday bank",
+                  "method": null,
+                  "counterparty": "Priya",
+                  "target": null,
+                  "shares": "my part was 240 and Priya owes 720",
+                  "personal": "240",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "960",
+                  "bookedOnText": "Today",
+                  "paymentMethod": null,
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": "lunch",
+                  "description": "lunch",
+                  "personalShareText": "240",
+                  "shares": [
+                    {
+                      "contactAlias": "Priya",
+                      "amountText": "720"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 2015
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "88b9af851d8c4b768d19549d966a4526727bfe33490e206e668d7915419e4597"
+        },
+        {
+          "role": "writer",
+          "sha256": "9348d9180c52b78b081fd3ae1d3bf3066a3ad4e34d2034ef37fddcdb60d84b83"
+        }
+      ]
+    },
+    {
+      "id": "F005",
+      "text": "Today I lent Priya 350 rupees from Cash wallet.",
+      "expectedKinds": [
+        "lend"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:36:53.856Z",
+      "status": "measured",
+      "predictedKinds": [
+        "lend"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "lend",
+            "sourceExcerpt": "Today I lent Priya 350 rupees from Cash wallet.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "350",
+              "method": "Cash wallet",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "350",
+              "date": "Today",
+              "account": "Cash wallet",
+              "method": null,
+              "counterparty": "Priya",
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "lend",
+            "fields": {
+              "amountText": "350",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Cash wallet",
+              "categoryHint": null,
+              "description": "lent Priya 350 rupees",
+              "counterpartyAlias": "Priya"
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 10660,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 3034,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 13706,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:36:53.862Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 10654
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "lend",
+                "sourceExcerpt": "Today I lent Priya 350 rupees from Cash wallet.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "350",
+                  "method": "Cash wallet",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 10658
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:04.527Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 3025
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "350",
+                  "date": "Today",
+                  "account": "Cash wallet",
+                  "method": "Cash",
+                  "counterparty": "Priya",
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "lend",
+                "fields": {
+                  "amountText": "350",
+                  "bookedOnText": "Today",
+                  "paymentMethod": "Cash",
+                  "accountAlias": "Cash wallet",
+                  "categoryHint": null,
+                  "description": "lent Priya 350 rupees",
+                  "counterpartyAlias": "Priya"
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 3030
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "e3b07cf7e6b9b0a6a555de0e8e6805d08d9029f0e6b4a41c447b44cc164d479c"
+        },
+        {
+          "role": "writer",
+          "sha256": "23dbbd59c7525032f511b7656cc21af09c038ab6a482e9690332f934725d77ec"
+        }
+      ]
+    },
+    {
+      "id": "F006",
+      "text": "Record an unpaid 425 rupees water bill dated today, due 2026-12-12.",
+      "expectedKinds": [
+        "create_bill"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:07.566Z",
+      "status": "measured",
+      "predictedKinds": [
+        "create_bill"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "create_bill",
+            "sourceExcerpt": "Record an unpaid 425 rupees water bill dated today, due 2026-12-12.",
+            "status": "proposed",
+            "requiresLookup": [],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "425",
+              "method": null,
+              "dateText": null
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "425",
+              "date": "today",
+              "account": null,
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": "2026-12-12"
+            },
+            "unresolvedFields": [
+              "counterpartyAlias"
+            ],
+            "questions": [
+              "Who is the counterparty for this water bill?"
+            ],
+            "kind": "create_bill",
+            "fields": {
+              "amountText": "425",
+              "bookedOnText": "today",
+              "paymentMethod": null,
+              "accountAlias": null,
+              "categoryHint": "water bill",
+              "description": "water bill",
+              "dueOnText": "2026-12-12",
+              "counterpartyAlias": null
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 7939,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 2179,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 10123,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:07.570Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7934
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "create_bill",
+                "sourceExcerpt": "Record an unpaid 425 rupees water bill dated today, due 2026-12-12.",
+                "status": "proposed",
+                "requiresLookup": [],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "425",
+                  "method": null,
+                  "dateText": "2026-11-05"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 7937
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:15.510Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 2173
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "425",
+                  "date": "today",
+                  "account": null,
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": "2026-12-12"
+                },
+                "unresolvedFields": [
+                  "counterpartyAlias"
+                ],
+                "questions": [
+                  "Who is the counterparty for this water bill?"
+                ],
+                "kind": "create_bill",
+                "fields": {
+                  "amountText": "425",
+                  "bookedOnText": "today",
+                  "paymentMethod": null,
+                  "accountAlias": null,
+                  "categoryHint": "water bill",
+                  "description": "water bill",
+                  "dueOnText": "2026-12-12",
+                  "counterpartyAlias": null
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 2177
+        }
+      ],
+      "validationDetails": [
+        {
+          "path": "planner.s1.fieldHints.dateText",
+          "value": "2026-11-05",
+          "reason": "not an exact substring of confirmed source"
+        }
+      ],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "ba8cb62a00a45f8380fb10e59e1acb481a20dc812b8eb08ec4ab224ce0eed395"
+        },
+        {
+          "role": "writer",
+          "sha256": "d153884a35ee646c17e58ec0f0a8ada4c550083d36ef48b1d6da13a0e8e5934e"
+        }
+      ]
+    },
+    {
+      "id": "F007",
+      "text": "List the income I recorded yesterday.",
+      "expectedKinds": [
+        "query"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:17.693Z",
+      "status": "measured",
+      "predictedKinds": [
+        "query"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "query",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "query",
+            "sourceExcerpt": "List the income I recorded yesterday.",
+            "status": "proposed",
+            "requiresLookup": [
+              "candidate_transactions"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": null,
+              "method": null,
+              "dateText": "yesterday"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 12276,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 12282,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:17.696Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 12272
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "query",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "query",
+                "sourceExcerpt": "List the income I recorded yesterday.",
+                "status": "proposed",
+                "requiresLookup": [
+                  "candidate_transactions"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": null,
+                  "method": null,
+                  "dateText": "yesterday"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 12275
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "3790b33422df74c4bebe12a7997a4819b60f32bd471395b076698f1a4c698574"
+        }
+      ]
+    },
+    {
+      "id": "F008",
+      "text": "Do not record the 75 rupees tea purchase.",
+      "expectedKinds": [],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:29.978Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "none",
+        "steps": [],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 9508,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 9514,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:29.981Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 9505
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "none",
+            "steps": [],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 9507
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "1b1da961529db341295ed21a1eca50ec94779d768145b3dc6ba274a682a63a28"
+        }
+      ]
+    },
+    {
+      "id": "F009",
+      "text": "Please send Priya 1500 rupees automatically from my real bank.",
+      "expectedKinds": [],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:39.496Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "unsupported",
+        "steps": [],
+        "globalQuestions": [],
+        "unsupportedFragments": [
+          "Please send Priya 1500 rupees automatically from my real bank."
+        ]
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 1301,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 1311,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:39.502Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 1299
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "unsupported",
+            "steps": [],
+            "globalQuestions": [],
+            "unsupportedFragments": [
+              "Please send Priya 1500 rupees automatically from my real bank."
+            ]
+          },
+          "durationMs": 1301
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "56b5f9109ca774c5a29bd4fe06880581ecd9674cea7fbd2897440679af7d9f6d"
+        }
+      ]
+    },
+    {
+      "id": "F010",
+      "text": "Record the 450 rupees refund as income.",
+      "expectedKinds": [],
+      "mustClarify": true,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:47.509Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "clarify",
+        "steps": [],
+        "globalQuestions": [
+          "A refund is not salary. Identify the original expense and use a supported correction workflow."
+        ],
+        "unsupportedFragments": [
+          "Record the 450 rupees refund as income."
+        ]
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 1604,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 1616,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:47.512Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 1600
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "income",
+                "sourceExcerpt": "Record the 450 rupees refund as income.",
+                "status": "needs_clarification",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "450",
+                  "method": null,
+                  "dateText": null
+                },
+                "unresolvedFields": [
+                  "account"
+                ],
+                "clarificationQuestions": [
+                  "Which account should the 450 rupees refund be credited to?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 1603
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "18303cda74ef2de92bd89342774a2e391eaf48343dc747ac3984ed7abc2f27da"
+        }
+      ]
+    },
+    {
+      "id": "F011",
+      "text": "Log a payment of 95 rupees I made yesterday.",
+      "expectedKinds": [],
+      "mustClarify": true,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:37:55.511Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "clarify",
+        "steps": [],
+        "globalQuestions": [
+          "Was this payment an expense, a transfer, or a repayment? Please describe its purpose."
+        ],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 7740,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 7748,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:37:55.513Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7738
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "clarify",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "expense",
+                "sourceExcerpt": "Log a payment of 95 rupees I made yesterday.",
+                "status": "needs_clarification",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "95",
+                  "method": null,
+                  "dateText": "yesterday"
+                },
+                "unresolvedFields": [
+                  "method"
+                ],
+                "clarificationQuestions": [
+                  "Which account was used for this payment of 95 rupees?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 7739
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "10a9d80f7d3c39a3c6848923234cbf2a7943a1eaa5b6103bee0489bf672ff480"
+        }
+      ]
+    },
+    {
+      "id": "F012",
+      "text": "Record 7.123 rupees for tea from Cash wallet today.",
+      "expectedKinds": [
+        "expense"
+      ],
+      "mustClarify": true,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:38:03.519Z",
+      "status": "measured",
+      "predictedKinds": [
+        "expense"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "expense",
+            "sourceExcerpt": "Record 7.123 rupees for tea from Cash wallet today.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "7.123",
+              "method": "Cash wallet",
+              "dateText": "today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "7.123",
+              "date": "today",
+              "account": "Cash wallet",
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [
+              "amountText"
+            ],
+            "questions": [
+              "Confirm an unambiguous amount with at most two decimal places."
+            ],
+            "kind": "expense",
+            "fields": {
+              "amountText": "7.123",
+              "bookedOnText": "today",
+              "paymentMethod": null,
+              "accountAlias": "Cash wallet",
+              "categoryHint": "tea",
+              "description": "tea"
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 6134,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 6397,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 12539,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:38:03.521Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6131
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "expense",
+                "sourceExcerpt": "Record 7.123 rupees for tea from Cash wallet today.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "7.123",
+                  "method": "Cash wallet",
+                  "dateText": "today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 6134
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:38:09.658Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6393
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "7.123",
+                  "date": "today",
+                  "account": "Cash wallet",
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "expense",
+                "fields": {
+                  "amountText": "7.123",
+                  "bookedOnText": "today",
+                  "paymentMethod": null,
+                  "accountAlias": "Cash wallet",
+                  "categoryHint": "tea",
+                  "description": "tea"
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 6397
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "581ef3bd4ad46b8454df710f73ccfbf579f7ef87f3e39f626ef4963ab899c971"
+        },
+        {
+          "role": "writer",
+          "sha256": "e84c5c6e4d1cc66241b318f9f2abc6d47fe6fdf97a78f6e86cb8e52d2d86102d"
+        }
+      ]
+    }
+  ]
+}

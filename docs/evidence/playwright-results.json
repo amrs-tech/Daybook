@@ -3,9 +3,7 @@
     "argv": [
       "C:\\nvm4w\\nodejs\\node.exe",
       "E:\\experiments\\daybook-agent-v21\\node_modules\\@playwright\\test\\cli.js",
-      "test",
-      "--grep",
-      "three proposed expenses"
+      "test"
     ],
     "configFile": "E:\\experiments\\daybook-agent-v21\\playwright.config.ts",
     "rootDir": "E:/experiments/daybook-agent-v21/tests/e2e",
@@ -57,7 +55,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
         "use": {
-          "baseURL": "http://localhost:3000",
+          "baseURL": "http://localhost:3001",
           "trace": "retain-on-failure"
         },
         "dependencies": [],
@@ -113,12 +111,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13972,
+                  "duration": 12744,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-06T14:11:11.937Z",
+                  "startTime": "2026-11-06T19:39:12.584Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -130,15 +128,219 @@
           "file": "daybook.spec.ts",
           "line": 9,
           "column": 1
+        },
+        {
+          "title": "a changed transcript disables approval of an old preview",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1691,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:25.456Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-9756ab7c55d3c4e78df6",
+          "file": "daybook.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "voice missing-provider state preserves the typed alternative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1425,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:27.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-7c266c82bfb7ca30ef4e",
+          "file": "daybook.spec.ts",
+          "line": 60,
+          "column": 1
+        },
+        {
+          "title": "mobile layout keeps primary content within the viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1431,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:28.602Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-3f19e31dd3a4fce582b6",
+          "file": "daybook.spec.ts",
+          "line": 68,
+          "column": 1
+        },
+        {
+          "title": "run details expose separate Planner and Writer proposals",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:30.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-20dd2e7507c13fe98074",
+          "file": "daybook.spec.ts",
+          "line": 86,
+          "column": 1
+        },
+        {
+          "title": "rejecting a batch leaves journal history unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:31.621Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-ad5339c2ebecb28d55d2",
+          "file": "daybook.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "a different browser session cannot read the current draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3088,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-06T19:39:36.023Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "61252d6b7997063963bb-f22a3960c329dd285734",
+          "file": "daybook.spec.ts",
+          "line": 109,
+          "column": 1
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-06T14:11:10.760Z",
-    "duration": 16252.515,
-    "expected": 1,
+    "startTime": "2026-11-06T19:39:11.994Z",
+    "duration": 28476.992,
+    "expected": 7,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

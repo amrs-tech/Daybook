@@ -1,0 +1,769 @@
+{
+  "fixtureVersion": "daybook-eval-v2.1.1",
+  "startedAt": "2026-11-06T19:34:20.529Z",
+  "modelId": "gemini-3.1-flash-lite",
+  "datasetSize": 72,
+  "selectedSize": 5,
+  "holdoutSize": 15,
+  "referenceInstant": "2026-11-05T16:00:00Z",
+  "intervalMs": 10000,
+  "parallelism": 1,
+  "automaticCaseRetries": 0,
+  "sdkAttemptsPerInvocation": 1,
+  "perRequestTimeoutMs": 25000,
+  "agentBudgetMs": 50000,
+  "executionRevision": "daybook-execution-v2.2",
+  "promptVersions": [
+    "daybook-planner-v2.1",
+    "daybook-writer-v2.1"
+  ],
+  "priorReport": "docs/evidence/evaluation-live-baseline-2026-11-06.json",
+  "notes": [
+    "Uses the actual production GeminiProvider and graph; only the fetch transport is observed.",
+    "Pacing is between cases, outside the 50-second agent budget. This run tests execution policy v2.2, 25-second requests, grounding and at most one transient retry within the three-call cap.",
+    "Synthetic fixture inputs and model outputs are retained for diagnosis; credentials, authorization headers, cookies and request URLs are not recorded.",
+    "No ledger writes; no fallback; no case retries. A transient retry or structural repair shares the same three-invocation cap."
+  ],
+  "updatedAt": "2026-11-06T19:35:03.542Z",
+  "complete": true,
+  "counts": {
+    "measured": 5,
+    "failed": 0,
+    "blocked": 0,
+    "remaining": 0
+  },
+  "errors": {},
+  "httpStatuses": {
+    "200": 6
+  },
+  "requestCount": 6,
+  "httpAttempts": 6,
+  "confirmed429Responses": 0,
+  "serverErrorResponses": 0,
+  "networkOrTimeoutErrors": 0,
+  "metrics": {
+    "operationSequenceExact": {
+      "correct": 5,
+      "denominator": 5
+    },
+    "criticalFieldsSemantic": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "criticalFieldsExact": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "clarificationRecall": {
+      "correct": 3,
+      "denominator": 3
+    }
+  },
+  "allApplicableMetricsPassed": 5,
+  "outcomes": [
+    {
+      "id": "E052",
+      "text": "I received a refund for a returned item; add it as salary.",
+      "expectedKinds": [],
+      "mustClarify": true,
+      "split": "development",
+      "startedAt": "2026-11-06T19:34:20.534Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "clarify",
+        "steps": [],
+        "globalQuestions": [
+          "A refund is not salary. Identify the original expense and use a supported correction workflow."
+        ],
+        "unsupportedFragments": [
+          "I received a refund for a returned item; add it as salary."
+        ]
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 7845,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 7882,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:34:20.557Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7826
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "clarify",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "income",
+                "sourceExcerpt": "I received a refund for a returned item; add it as salary.",
+                "status": "needs_clarification",
+                "requiresLookup": [
+                  "accounts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": null,
+                  "method": null,
+                  "dateText": "today"
+                },
+                "unresolvedFields": [
+                  "amount",
+                  "account"
+                ],
+                "clarificationQuestions": [
+                  "What was the amount of the refund?",
+                  "Which account should this be credited to?",
+                  "Should this be recorded as a refund (correction) or as salary income as requested?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 7839
+        }
+      ],
+      "validationDetails": [
+        {
+          "path": "planner.s1.fieldHints.dateText",
+          "value": "today",
+          "reason": "not an exact substring of confirmed source"
+        }
+      ],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "d6f2132747f4cdb048c910b769d6f64a4dd61927c6f4ee586ade7d58f04950b8"
+        }
+      ]
+    },
+    {
+      "id": "E054",
+      "text": "Pay Arun from my real bank account automatically.",
+      "expectedKinds": [],
+      "mustClarify": false,
+      "split": "development",
+      "startedAt": "2026-11-06T19:34:30.541Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "unsupported",
+        "steps": [],
+        "globalQuestions": [],
+        "unsupportedFragments": [
+          "Pay Arun from my real bank account automatically."
+        ]
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 9892,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 9906,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:34:30.548Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 9885
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "clarify",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "pay_bill",
+                "sourceExcerpt": "Pay Arun from my real bank account automatically.",
+                "status": "needs_clarification",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": null,
+                  "method": "real bank account",
+                  "dateText": null
+                },
+                "unresolvedFields": [
+                  "amount",
+                  "purpose"
+                ],
+                "clarificationQuestions": [
+                  "What is the amount to be paid?",
+                  "What is the purpose of this payment (e.g., is this a bill payment, a loan repayment, or something else)?",
+                  "I cannot set up automatic payments. Would you like me to record this as a one-time payment?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": [
+              "automatically"
+            ]
+          },
+          "durationMs": 9890
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "84c0ee9bdfb1f5dbf53398cdffd345ce8ef85680f2a4211d54fd14fb0b999bf4"
+        }
+      ]
+    },
+    {
+      "id": "E057",
+      "text": "Set my bank balance to 1 lakh without an opening record.",
+      "expectedKinds": [],
+      "mustClarify": true,
+      "split": "development",
+      "startedAt": "2026-11-06T19:34:40.544Z",
+      "status": "measured",
+      "predictedKinds": [],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "clarify",
+        "steps": [],
+        "globalQuestions": [
+          "A bank balance needs an opening record or a supported correction. Which source record establishes this balance?"
+        ],
+        "unsupportedFragments": [
+          "Set my bank balance to 1 lakh without an opening record."
+        ]
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 9319,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 9331,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:34:40.552Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 9313
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "unsupported",
+            "steps": [],
+            "globalQuestions": [],
+            "unsupportedFragments": [
+              "Set my bank balance to 1 lakh without an opening record."
+            ]
+          },
+          "durationMs": 9317
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "c7165ea120613f26d98ca736d10fc923f5bd5bb6097a0afef6423fe105e8086e"
+        }
+      ]
+    },
+    {
+      "id": "E062",
+      "text": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:34:50.548Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "600",
+              "method": "Cash wallet",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "600",
+              "date": "Today",
+              "account": "Cash wallet",
+              "method": null,
+              "counterparty": "Arun",
+              "target": null,
+              "shares": "Arun owes 600",
+              "personal": "zero",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "600",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Cash wallet",
+              "categoryHint": "lunch",
+              "description": "lunch",
+              "personalShareText": "zero",
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "600"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 7278,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 4283,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 11571,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:34:50.551Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7273
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "600",
+                  "method": "Cash wallet",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 7276
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:34:57.836Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 4255
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "600",
+                  "date": "Today",
+                  "account": "Cash wallet",
+                  "method": "Cash wallet",
+                  "counterparty": "Arun",
+                  "target": null,
+                  "shares": "Arun owes 600",
+                  "personal": "zero",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "600",
+                  "bookedOnText": "Today",
+                  "paymentMethod": "Cash",
+                  "accountAlias": "Cash wallet",
+                  "categoryHint": "lunch",
+                  "description": "lunch",
+                  "personalShareText": "zero",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "600"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 4263
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "9bd4115f4748a17d8259d697132183e39040071569cc8100dece90ba0e51d215"
+        },
+        {
+          "role": "writer",
+          "sha256": "6d6f5f05e3dfe6ef9cee572cc4b674ca721d89d0cc6fbdcb0fb805f775d6f5ba"
+        }
+      ]
+    },
+    {
+      "id": "E070",
+      "text": "The current cash count is less than the ledger; show the difference without posting anything.",
+      "expectedKinds": [
+        "query"
+      ],
+      "mustClarify": true,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:35:02.122Z",
+      "status": "measured",
+      "predictedKinds": [
+        "query"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "query",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "query",
+            "sourceExcerpt": "The current cash count is less than the ledger; show the difference without posting anything.",
+            "status": "proposed",
+            "requiresLookup": [
+              "balances"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": null,
+              "method": null,
+              "dateText": null
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [
+          "What cash amount did you count? The ledger alone cannot establish your physical cash count."
+        ],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 1408,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 1,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "No mutation steps; no Writer model invocation"
+        }
+      ],
+      "modelCalls": 1,
+      "latencyMs": 1417,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:35:02.125Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 1405
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "query",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "query",
+                "sourceExcerpt": "The current cash count is less than the ledger; show the difference without posting anything.",
+                "status": "proposed",
+                "requiresLookup": [
+                  "balances"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": null,
+                  "method": null,
+                  "dateText": null
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 1408
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "eb01e44efe3d18c7b96266a060cd5a18ca4a52134fe2d73e3c21c3ed239782e9"
+        }
+      ]
+    }
+  ]
+}

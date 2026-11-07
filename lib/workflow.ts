@@ -144,6 +144,8 @@ export async function interpret(
         modelId: output.modelId,
         plannerModelId: output.plannerModelId,
         writerModelId: output.writerModelId,
+        executionRevision: output.executionRevision,
+        transientRetries: output.transientRetries,
         planner: output.planner,
         lookups: output.lookups,
       }),
@@ -157,7 +159,11 @@ export async function interpret(
       context.id,
       id,
       "FAILED_RETRYABLE",
-      "{}",
+      JSON.stringify({
+        providerFailure:
+          (e as { providerFailure?: unknown }).providerFailure ?? null,
+        executionRevision: "daybook-execution-v2.2",
+      }),
       error,
       JSON.stringify((e as { events?: unknown }).events ?? []),
     ]);

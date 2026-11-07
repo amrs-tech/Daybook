@@ -2,11 +2,11 @@
 
 A voice and text personal ledger with a bounded Planner, a separate Writer, editable drafts, explicit review, and an immutable balanced journal. Built solely from the two attachments in this chat. The supplied workspace had no existing application; this is a standalone implementation, not a verified upgrade of an unseen repository.
 
-**Release status: local implementation tested; public release blocked.** Live Gemini, ElevenLabs, Langfuse, Supabase authentication, conventional PostgreSQL races and deployed browser journeys require external access and verification. Fixture replay is explicitly labeled and accepts exact examples only. It does not interpret arbitrary instructions.
+**Release status: reported code defects fixed and automated checks passed; physical microphone acceptance and deployed HTTPS/runtime verification remain pending.** See the [current fix and verification report](docs/FIX_VERIFICATION_2026_11_07.md) for 108 unit, 50 integration, 7 browser, 16 hosted/API checks and the separately labeled live AI evaluations. No deployment is claimed. Fixture replay accepts exact examples only and does not interpret arbitrary instructions.
 
 ## Run the local synthetic demo
 
-Use Node.js 22 or newer (built here with Node 24.22.1) and npm.
+Use Node.js 22.x and npm. Deployment is pinned to Node 22, matching the latest local verification.
 
 ```bash
 npm ci

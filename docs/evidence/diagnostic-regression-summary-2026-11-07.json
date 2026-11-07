@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-11-06T18:52:13.912Z",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "status": "passed"
+  },
+  "unit": {
+    "command": "npm test",
+    "passed": 84,
+    "failed": 0,
+    "source": "Observed completed test-run output in this verification session"
+  },
+  "integration": {
+    "report": "docs/evidence/integration-rerun-2026-11-07.json",
+    "passed": 50,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sourceSha256": {
+    "lib/agent/providers.ts": "cbb0fa0e7f6e4b933e169ebe70ae62569817a9ed798d3936a23ed075eaf79991",
+    "lib/agent/gemini-schema.ts": "4afcf22183c0eba117c92a6b6420d6e84a8ce8a43079df790902a43dac47cae6",
+    "lib/agent/graph.ts": "a6f3c9ad3ffe7a4464abc809872c5d352ba5be6ccbce7f6bb8a75a17b862b075",
+    "scripts/evaluate-detailed.ts": "04084aeee64e50951563a0d7a6b87150854090274b3d0048db80619d0da32abe",
+    "scripts/evaluation-diagnostics.ts": "a534e75f5a8a6721fb2d60a54a0422c5205ad51108fd16fb73bfaf8eab55174a",
+    "tests/unit/evaluation-diagnostics.test.ts": "ef45fbea82ead613f47bbaf28664a65b2d504db281c70e1a539b10ec5093fc60"
+  }
+}

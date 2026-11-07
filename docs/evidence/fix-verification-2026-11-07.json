@@ -1,0 +1,260 @@
+{
+  "generatedAt": "2026-11-06T19:49:43.374Z",
+  "executionRevision": "daybook-execution-v2.2",
+  "configuredModel": "gemini-3.1-flash-lite",
+  "automatedKnownIssueChecksPassed": true,
+  "releaseReady": false,
+  "remaining": [
+    "Physical microphone transcription, Pause and Stop are user-confirmed. The latest transcript preserves the stated sentence, including 25 rupees as twenty-five rupees. Cancel and permission-denial behavior remain unconfirmed.",
+    "Deployed HTTPS and platform runtime acceptance has not been performed."
+  ],
+  "fixes": [
+    {
+      "issue": "Provider schema rejection",
+      "change": "Gemini-compatible schema projection, while retaining original Zod structure and financial validation."
+    },
+    {
+      "issue": "Unverified Planner hints/excerpts",
+      "change": "Source-constrained quote choices and case-only re-anchoring. Unsupported non-authoritative hints become null."
+    },
+    {
+      "issue": "Guessed accounts and payment rails",
+      "change": "Unsupported critical values become null with required clarification; optional payment methods are omitted rather than inferred from an account."
+    },
+    {
+      "issue": "Writer rejects query steps",
+      "change": "Query-only runs do not call the Writer model. Mixed requests send mutation steps only, with original references preserved."
+    },
+    {
+      "issue": "Amount/date formatting mismatch",
+      "change": "Trusted money/date parsing for evidence and financial score equivalence; original literal score remains separately available. Numeric substring matches are rejected."
+    },
+    {
+      "issue": "Missing amount/date/target and invalid precision",
+      "change": "Explicit unresolved fields and review questions; no rounding, date invention or guessed target selection."
+    },
+    {
+      "issue": "Split evidence",
+      "change": "Every person/amount association is checked even when a broad quote contains all names and numbers. Swapped and ambiguous allocations require clarification. Comma-grouped and spoken amounts use the trusted money parser in both grounding and final validation."
+    },
+    {
+      "issue": "Unsupported capabilities",
+      "change": "Server-side guards reject external bank/trade execution and refund-as-income relabeling; balance overwrites and missing cash-count arguments require clarification."
+    },
+    {
+      "issue": "503/504 reliability",
+      "change": "Verified stable gemini-3.1-flash-lite selected locally; smaller Writer input, 25-second requests, 50-second agent budget and at most one transient retry sharing the original three-call cap."
+    },
+    {
+      "issue": "Unhelpful/opaque failures",
+      "change": "Safe HTTP category retained in failed-run metadata; user-facing retry messages contain no raw provider URLs or secrets."
+    },
+    {
+      "issue": "Optional metadata blocks review",
+      "change": "Payment method, category and description questions do not override required financial checks. Unpaid bills do not require payment account or counterparty."
+    },
+    {
+      "issue": "Browser timing and evaluation false-green",
+      "change": "Browser waits for the actual commit response. Live evaluation now fails on applicable metric mismatches as well as exceptions."
+    }
+  ],
+  "tests": {
+    "unit": {
+      "passed": 108,
+      "failed": 0
+    },
+    "integration": {
+      "passed": 50,
+      "failed": 0,
+      "skipped": 0
+    },
+    "browser": {
+      "passed": 7,
+      "failed": 0
+    },
+    "hosted": {
+      "passed": 16,
+      "failed": 0
+    },
+    "liveFullRun": {
+      "counts": {
+        "measured": 71,
+        "failed": 1,
+        "blocked": 0,
+        "remaining": 0
+      },
+      "metrics": {
+        "operationSequenceExact": {
+          "correct": 69,
+          "denominator": 71
+        },
+        "criticalFieldsSemantic": {
+          "correct": 2,
+          "denominator": 2
+        },
+        "criticalFieldsExact": {
+          "correct": 0,
+          "denominator": 2
+        },
+        "clarificationRecall": {
+          "correct": 27,
+          "denominator": 29
+        }
+      },
+      "errors": {
+        "MISSING_SPLIT_EVIDENCE": 1
+      },
+      "http": {
+        "200": 125,
+        "504": 1
+      },
+      "explanation": "This full run preceded the last five targeted corrections; preserve its one failure and four metric mismatches rather than rewriting it."
+    },
+    "liveFinalConfirmation": {
+      "ids": [
+        "E052",
+        "E054",
+        "E057",
+        "E062",
+        "E070"
+      ],
+      "counts": {
+        "measured": 5,
+        "failed": 0,
+        "blocked": 0,
+        "remaining": 0
+      },
+      "metrics": {
+        "operationSequenceExact": {
+          "correct": 5,
+          "denominator": 5
+        },
+        "criticalFieldsSemantic": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "criticalFieldsExact": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "clarificationRecall": {
+          "correct": 3,
+          "denominator": 3
+        }
+      },
+      "applicableMetricsPassed": 5
+    },
+    "capturedFinalRegression": {
+      "mode": "captured_output_regression_not_live_AI",
+      "passed": 72,
+      "failed": 0
+    },
+    "freshLiveValidation": {
+      "counts": {
+        "measured": 12,
+        "failed": 0,
+        "blocked": 0,
+        "remaining": 0
+      },
+      "metrics": {
+        "operationSequenceExact": {
+          "correct": 12,
+          "denominator": 12
+        },
+        "criticalFieldsSemantic": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "criticalFieldsExact": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "clarificationRecall": {
+          "correct": 3,
+          "denominator": 3
+        }
+      },
+      "applicableMetricsPassed": 12
+    },
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "liveSplitConfirmation": {
+      "counts": {
+        "measured": 5,
+        "failed": 0,
+        "blocked": 0,
+        "remaining": 0
+      },
+      "metrics": {
+        "operationSequenceExact": {
+          "correct": 5,
+          "denominator": 5
+        },
+        "criticalFieldsSemantic": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "criticalFieldsExact": {
+          "correct": 0,
+          "denominator": 0
+        },
+        "clarificationRecall": {
+          "correct": 2,
+          "denominator": 2
+        }
+      },
+      "applicableMetricsPassed": 5,
+      "http": {
+        "200": 10
+      }
+    },
+    "manualMicrophone": {
+      "recordedAt": "2026-11-06T19:53:29.972Z",
+      "evidenceSource": "User-reported physical microphone transcription; audio was not independently inspected",
+      "status": "partial_pass",
+      "requestedSentence": "I spent 25 rupees using Cash from Cash wallet for test tea today.",
+      "reportedTranscript": "Spend ₹25 using cash from Cash Wallet for TestT today",
+      "checks": {
+        "recordingAndTranscriptionProducedText": "user_reported_pass",
+        "amount25RupeesPreserved": "user_reported_pass",
+        "cashMethodAndCashWalletPreserved": "user_reported_pass",
+        "descriptionTestTea": "earlier_transcript_differs_from_requested_script_actual_audio_not_inspected",
+        "completedEventWording": "earlier_transcript_differs_from_requested_script_actual_audio_not_inspected",
+        "pause": "user_reported_pass",
+        "stop": "user_reported_pass",
+        "cancel": "awaiting_confirmation",
+        "permissionDenial": "not_verified"
+      },
+      "action": "No correction is needed for the latest transcript. Review extracted amount, date and account before any approval. Cancel and permission-denial checks remain unconfirmed.",
+      "limitations": "User-reported observations and control results; not an overall speech accuracy benchmark. No ledger posting inferred.",
+      "lastUpdatedAt": "2026-11-06T19:55:17.439Z",
+      "requestedSentenceIsTestScriptNotIndependentlyVerifiedAudio": true,
+      "latestObservation": {
+        "evidenceSource": "Original wording and transcript supplied by the user; audio not independently inspected",
+        "reportedOriginalAudio": "I spent 25 rupees for drinking tea yesterday",
+        "reportedTranscript": "I spent twenty-five rupees for drinking tea yesterday",
+        "meaningPreserved": true,
+        "amountNormalization": "25 rupees and twenty-five rupees both parse to 2500 integer paise",
+        "parserCheck": "passed",
+        "semanticComparisonCheck": "passed",
+        "correctionNeededForThisTranscript": false
+      }
+    }
+  },
+  "evidence": {
+    "liveFull": "docs/evidence/evaluation-fixed-2026-11-07.json",
+    "liveConfirmations": "docs/evidence/evaluation-fix-confirmation-2026-11-07.json",
+    "capturedRegression": "docs/evidence/captured-regression-final-2026-11-07.json",
+    "freshValidation": "docs/evidence/evaluation-fresh-validation-2026-11-07.json",
+    "liveSplitConfirmation": "docs/evidence/evaluation-split-confirmation-2026-11-07.json",
+    "manualMicrophone": "docs/evidence/manual-microphone-2026-11-07.json"
+  },
+  "notes": [
+    "The final validation replay is not new live-model accuracy. The last five corrections were live-tested separately.",
+    "The 15 original holdout cases have been inspected during debugging and are no longer an untouched holdout. The 12 fresh phrasings were not used to tune these fixes.",
+    "Literal critical-field scores remain 0/2 where serialized amount wording differs; trusted financial equivalence is 2/2.",
+    "A future cloud outage cannot be eliminated by application code; retry and deadline behavior are bounded and fail closed.",
+    "No deployment or GitHub push performed."
+  ],
+  "lastUpdatedAt": "2026-11-06T19:55:17.439Z"
+}

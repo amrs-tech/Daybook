@@ -1,0 +1,1417 @@
+{
+  "fixtureVersion": "daybook-eval-v2.1.1",
+  "startedAt": "2026-11-06T19:46:28.337Z",
+  "modelId": "gemini-3.1-flash-lite",
+  "datasetSize": 72,
+  "selectedSize": 5,
+  "holdoutSize": 15,
+  "referenceInstant": "2026-11-05T16:00:00Z",
+  "intervalMs": 1500,
+  "parallelism": 1,
+  "automaticCaseRetries": 0,
+  "sdkAttemptsPerInvocation": 1,
+  "perRequestTimeoutMs": 25000,
+  "agentBudgetMs": 50000,
+  "executionRevision": "daybook-execution-v2.2",
+  "promptVersions": [
+    "daybook-planner-v2.1",
+    "daybook-writer-v2.1"
+  ],
+  "priorReport": "docs/evidence/evaluation-live-baseline-2026-11-06.json",
+  "notes": [
+    "Uses the actual production GeminiProvider and graph; only the fetch transport is observed.",
+    "Pacing is between cases, outside the 50-second agent budget. This run tests execution policy v2.2, 25-second requests, grounding and at most one transient retry within the three-call cap.",
+    "Synthetic fixture inputs and model outputs are retained for diagnosis; credentials, authorization headers, cookies and request URLs are not recorded.",
+    "No ledger writes; no fallback; no case retries. A transient retry or structural repair shares the same three-invocation cap."
+  ],
+  "updatedAt": "2026-11-06T19:47:20.542Z",
+  "complete": true,
+  "counts": {
+    "measured": 5,
+    "failed": 0,
+    "blocked": 0,
+    "remaining": 0
+  },
+  "errors": {},
+  "httpStatuses": {
+    "200": 10
+  },
+  "requestCount": 10,
+  "httpAttempts": 10,
+  "confirmed429Responses": 0,
+  "serverErrorResponses": 0,
+  "networkOrTimeoutErrors": 0,
+  "metrics": {
+    "operationSequenceExact": {
+      "correct": 5,
+      "denominator": 5
+    },
+    "criticalFieldsSemantic": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "criticalFieldsExact": {
+      "correct": 0,
+      "denominator": 0
+    },
+    "clarificationRecall": {
+      "correct": 2,
+      "denominator": 2
+    }
+  },
+  "allApplicableMetricsPassed": 5,
+  "outcomes": [
+    {
+      "id": "E003",
+      "text": "Yesterday I paid 2400 rupees for team dinner. My share was 800 rupees. Arun owes me 800 rupees and Priya owes me 800 rupees.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": true,
+      "split": "development",
+      "startedAt": "2026-11-06T19:46:28.339Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Yesterday I paid 2400 rupees for team dinner. My share was 800 rupees. Arun owes me 800 rupees and Priya owes me 800 rupees.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "2400",
+              "method": null,
+              "dateText": "Yesterday"
+            },
+            "unresolvedFields": [
+              "method"
+            ],
+            "clarificationQuestions": [
+              "Which account was used to pay the 2400 rupees?"
+            ]
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "2400",
+              "date": "Yesterday",
+              "account": null,
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": "Arun owes me 800 rupees and Priya owes me 800 rupees.",
+              "personal": "800 rupees",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [
+              "accountAlias",
+              "paymentMethod"
+            ],
+            "questions": [
+              "Which account was used to pay the 2400 rupees?",
+              "What was the payment method (UPI, Cash, Online, or Other)?",
+              "Confirm the payment account before posting."
+            ],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "2400",
+              "bookedOnText": "Yesterday",
+              "paymentMethod": null,
+              "accountAlias": null,
+              "categoryHint": "team dinner",
+              "description": "team dinner",
+              "personalShareText": "800",
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "800"
+                },
+                {
+                  "contactAlias": "Priya",
+                  "amountText": "800"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 4932,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 6875,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 11841,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:28.362Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 4910
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Yesterday I paid 2400 rupees for team dinner. My share was 800 rupees. Arun owes me 800 rupees and Priya owes me 800 rupees.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "2400",
+                  "method": null,
+                  "dateText": "Yesterday"
+                },
+                "unresolvedFields": [
+                  "method"
+                ],
+                "clarificationQuestions": [
+                  "Which account was used to pay the 2400 rupees?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 4925
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:33.298Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6841
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "2400",
+                  "date": "Yesterday",
+                  "account": null,
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": "800 rupees",
+                  "personal": "800 rupees",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [
+                  "accountAlias",
+                  "paymentMethod"
+                ],
+                "questions": [
+                  "Which account was used to pay the 2400 rupees?",
+                  "What was the payment method (UPI, Cash, Online, or Other)?"
+                ],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "2400",
+                  "bookedOnText": "Yesterday",
+                  "paymentMethod": null,
+                  "accountAlias": null,
+                  "categoryHint": "team dinner",
+                  "description": "team dinner",
+                  "personalShareText": "800",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "800"
+                    },
+                    {
+                      "contactAlias": "Priya",
+                      "amountText": "800"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 6846
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "387783a0fcbc80f36bf6b2381ddb065f163abd243a7cbf8e1659b762bfeb733d"
+        },
+        {
+          "role": "writer",
+          "sha256": "b09125f9f6b15907de2c24fe90a5b30564288f47d8450e17485d945479e86da8"
+        }
+      ]
+    },
+    {
+      "id": "E004",
+      "text": "Yesterday I paid 2400 rupees for team dinner. Arun owes me 800 and Priya owes me 800. Priya already returned 500.",
+      "expectedKinds": [
+        "shared_payment",
+        "settle_claim"
+      ],
+      "mustClarify": true,
+      "split": "development",
+      "startedAt": "2026-11-06T19:46:40.184Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment",
+        "settle_claim"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": true,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Yesterday I paid 2400 rupees for team dinner. Arun owes me 800 and Priya owes me 800. Priya already returned 500.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "2400",
+              "method": null,
+              "dateText": "Yesterday"
+            },
+            "unresolvedFields": [
+              "method"
+            ],
+            "clarificationQuestions": [
+              "Which account was used for the 2400 payment?"
+            ]
+          },
+          {
+            "stepRef": "s2",
+            "kind": "settle_claim",
+            "sourceExcerpt": "Priya already returned 500.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "claims",
+              "accounts"
+            ],
+            "dependsOn": [
+              "s1"
+            ],
+            "fieldHints": {
+              "amountText": "500",
+              "method": null,
+              "dateText": null
+            },
+            "unresolvedFields": [
+              "method"
+            ],
+            "clarificationQuestions": [
+              "Which account received the 500 repayment from Priya?"
+            ]
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "2400",
+              "date": "Yesterday",
+              "account": null,
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": "Arun owes me 800 and Priya owes me 800.",
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [
+              "paymentMethod",
+              "accountAlias",
+              "personalShareText"
+            ],
+            "questions": [
+              "Which account was used for the 2400 payment?",
+              "Confirm the personal share from the original instruction or review form.",
+              "Confirm the payment account before posting."
+            ],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "2400",
+              "bookedOnText": "Yesterday",
+              "paymentMethod": null,
+              "accountAlias": null,
+              "categoryHint": "team dinner",
+              "description": "team dinner",
+              "personalShareText": null,
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "800"
+                },
+                {
+                  "contactAlias": "Priya",
+                  "amountText": "800"
+                }
+              ]
+            }
+          },
+          {
+            "stepRef": "s2",
+            "evidence": {
+              "amount": "500",
+              "date": null,
+              "account": null,
+              "method": null,
+              "counterparty": "Priya",
+              "target": null,
+              "shares": null,
+              "personal": null,
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [
+              "paymentMethod",
+              "accountAlias",
+              "targetHint",
+              "bookedOnText"
+            ],
+            "questions": [
+              "Which account received the 500 repayment from Priya?",
+              "Which claim is being settled by this 500 payment?",
+              "Confirm the transaction date before posting.",
+              "Confirm the payment account before posting.",
+              "Confirm the existing record before posting."
+            ],
+            "kind": "settle_claim",
+            "fields": {
+              "amountText": "500",
+              "bookedOnText": null,
+              "paymentMethod": null,
+              "accountAlias": null,
+              "categoryHint": null,
+              "description": "Priya already returned 500",
+              "counterpartyAlias": "Priya",
+              "targetHint": null
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 4862,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 7148,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 12022,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:40.191Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 4855
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Yesterday I paid 2400 rupees for team dinner. Arun owes me 800 and Priya owes me 800. Priya already returned 500.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "2400",
+                  "method": null,
+                  "dateText": "Yesterday"
+                },
+                "unresolvedFields": [
+                  "method"
+                ],
+                "clarificationQuestions": [
+                  "Which account was used for the 2400 payment?"
+                ]
+              },
+              {
+                "stepRef": "s2",
+                "kind": "settle_claim",
+                "sourceExcerpt": "Priya already returned 500.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "claims",
+                  "accounts"
+                ],
+                "dependsOn": [
+                  "s1"
+                ],
+                "fieldHints": {
+                  "amountText": "500",
+                  "method": null,
+                  "dateText": null
+                },
+                "unresolvedFields": [
+                  "method"
+                ],
+                "clarificationQuestions": [
+                  "Which account received the 500 repayment from Priya?"
+                ]
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 4860
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:45.056Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 7134
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "2400",
+                  "date": "Yesterday",
+                  "account": null,
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": "Arun owes me 800 and Priya owes me 800",
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [
+                  "paymentMethod",
+                  "accountAlias"
+                ],
+                "questions": [
+                  "Which account was used for the 2400 payment?"
+                ],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "2400",
+                  "bookedOnText": "Yesterday",
+                  "paymentMethod": null,
+                  "accountAlias": null,
+                  "categoryHint": "team dinner",
+                  "description": "team dinner",
+                  "personalShareText": "800",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "800"
+                    },
+                    {
+                      "contactAlias": "Priya",
+                      "amountText": "800"
+                    }
+                  ]
+                }
+              },
+              {
+                "stepRef": "s2",
+                "evidence": {
+                  "amount": "500",
+                  "date": null,
+                  "account": null,
+                  "method": null,
+                  "counterparty": "Priya",
+                  "target": null,
+                  "shares": null,
+                  "personal": null,
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [
+                  "paymentMethod",
+                  "accountAlias",
+                  "targetHint"
+                ],
+                "questions": [
+                  "Which account received the 500 repayment from Priya?",
+                  "Which claim is being settled by this 500 payment?"
+                ],
+                "kind": "settle_claim",
+                "fields": {
+                  "amountText": "500",
+                  "bookedOnText": null,
+                  "paymentMethod": null,
+                  "accountAlias": null,
+                  "categoryHint": null,
+                  "description": "Priya already returned 500",
+                  "counterpartyAlias": "Priya",
+                  "targetHint": null
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 7143
+        }
+      ],
+      "validationDetails": [
+        {
+          "path": "writer.s1.fields.personalShareText",
+          "value": "800",
+          "evidence": null,
+          "reason": "field value is absent from its evidence string"
+        }
+      ],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "869765775e621c6690c80fa051f49d823c4ed427fdd526fa109393ccc82a62a1"
+        },
+        {
+          "role": "writer",
+          "sha256": "e1658eb3c769a6e2c0a2c10f3c251899a2d97891c2b6743aa7ec5c9fdd560d8b"
+        }
+      ]
+    },
+    {
+      "id": "E016",
+      "text": "Today I paid 900 rupees from Everyday bank for dinner; my share is 300 rupees and Arun owes 600 rupees.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": false,
+      "split": "development",
+      "startedAt": "2026-11-06T19:46:52.209Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Today I paid 900 rupees from Everyday bank for dinner; my share is 300 rupees and Arun owes 600 rupees.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "900",
+              "method": "Everyday bank",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "900",
+              "date": "Today",
+              "account": "Everyday bank",
+              "method": null,
+              "counterparty": "Arun",
+              "target": null,
+              "shares": "Arun owes 600 rupees.",
+              "personal": "300",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "900",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Everyday bank",
+              "categoryHint": "dinner",
+              "description": "dinner",
+              "personalShareText": "300",
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "600"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 3478,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 6148,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 9640,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:52.217Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 3474
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Today I paid 900 rupees from Everyday bank for dinner; my share is 300 rupees and Arun owes 600 rupees.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "900",
+                  "method": "Everyday bank",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 3478
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:46:55.698Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 6142
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "900",
+                  "date": "Today",
+                  "account": "Everyday bank",
+                  "method": null,
+                  "counterparty": "Arun",
+                  "target": null,
+                  "shares": "300 rupees and Arun owes 600 rupees",
+                  "personal": "300",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "900",
+                  "bookedOnText": "Today",
+                  "paymentMethod": null,
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": "dinner",
+                  "description": "dinner",
+                  "personalShareText": "300",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "600"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 6146
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "1f284bc23c02edb21eb138194673356f2c670676b8f17a799ad256638500b230"
+        },
+        {
+          "role": "writer",
+          "sha256": "ade627582ed31c4a8eb741acf59e9c0940339f115f2c36fe51c4092cf8d2d31d"
+        }
+      ]
+    },
+    {
+      "id": "E017",
+      "text": "Today I paid 1500 rupees from Everyday bank for tickets; my share is 500, Arun owes 500 and Priya owes 500.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": false,
+      "split": "development",
+      "startedAt": "2026-11-06T19:47:01.856Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Today I paid 1500 rupees from Everyday bank for tickets; my share is 500, Arun owes 500 and Priya owes 500.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "1500",
+              "method": "Everyday bank",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "1500",
+              "date": "Today",
+              "account": "Everyday bank",
+              "method": null,
+              "counterparty": null,
+              "target": null,
+              "shares": "Arun owes 500 and Priya owes 500.",
+              "personal": "500",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "1500",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Everyday bank",
+              "categoryHint": null,
+              "description": "tickets",
+              "personalShareText": "500",
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "500"
+                },
+                {
+                  "contactAlias": "Priya",
+                  "amountText": "500"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 5313,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 5072,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 10392,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:47:01.861Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 5305
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Today I paid 1500 rupees from Everyday bank for tickets; my share is 500, Arun owes 500 and Priya owes 500.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "1500",
+                  "method": "Everyday bank",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 5310
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:47:07.175Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 5064
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "1500",
+                  "date": "Today",
+                  "account": "Everyday bank",
+                  "method": null,
+                  "counterparty": null,
+                  "target": null,
+                  "shares": "my share is 500, Arun owes 500 and Priya owes 500",
+                  "personal": "500",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "1500",
+                  "bookedOnText": "Today",
+                  "paymentMethod": null,
+                  "accountAlias": "Everyday bank",
+                  "categoryHint": null,
+                  "description": "tickets",
+                  "personalShareText": "500",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "500"
+                    },
+                    {
+                      "contactAlias": "Priya",
+                      "amountText": "500"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 5071
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "af08ef31617ddfb7f16d6558cadb281e83831fcb4821f562ba21c1fb08274e21"
+        },
+        {
+          "role": "writer",
+          "sha256": "045c26590394e19a114360f322e13cb04ad4a986993a1c3dfcf659d219ca6931"
+        }
+      ]
+    },
+    {
+      "id": "E062",
+      "text": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+      "expectedKinds": [
+        "shared_payment"
+      ],
+      "mustClarify": false,
+      "split": "holdout",
+      "startedAt": "2026-11-06T19:47:12.251Z",
+      "status": "measured",
+      "predictedKinds": [
+        "shared_payment"
+      ],
+      "operationSequenceExact": true,
+      "clarificationDetected": false,
+      "criticalFieldsExact": null,
+      "criticalFieldsSemantic": null,
+      "criticalFieldDifferences": [],
+      "validatedPlanner": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-planner-v2.1",
+        "intent": "mutate",
+        "steps": [
+          {
+            "stepRef": "s1",
+            "kind": "shared_payment",
+            "sourceExcerpt": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+            "status": "needs_lookup",
+            "requiresLookup": [
+              "accounts",
+              "contacts"
+            ],
+            "dependsOn": [],
+            "fieldHints": {
+              "amountText": "600",
+              "method": "Cash wallet",
+              "dateText": "Today"
+            },
+            "unresolvedFields": [],
+            "clarificationQuestions": []
+          }
+        ],
+        "globalQuestions": [],
+        "unsupportedFragments": []
+      },
+      "validatedWriter": {
+        "schemaVersion": "2.1",
+        "promptVersion": "daybook-writer-v2.1",
+        "drafts": [
+          {
+            "stepRef": "s1",
+            "evidence": {
+              "amount": "600",
+              "date": "Today",
+              "account": "Cash wallet",
+              "method": null,
+              "counterparty": "Arun",
+              "target": null,
+              "shares": "Arun owes 600.",
+              "personal": "zero",
+              "destination": null,
+              "due": null
+            },
+            "unresolvedFields": [],
+            "questions": [],
+            "kind": "shared_payment",
+            "fields": {
+              "amountText": "600",
+              "bookedOnText": "Today",
+              "paymentMethod": null,
+              "accountAlias": "Cash wallet",
+              "categoryHint": "lunch",
+              "description": "lunch",
+              "personalShareText": "zero",
+              "shares": [
+                {
+                  "contactAlias": "Arun",
+                  "amountText": "600"
+                }
+              ]
+            }
+          }
+        ],
+        "rejectedSteps": []
+      },
+      "transientRetries": 0,
+      "events": [
+        {
+          "role": "planner",
+          "outcome": "complete",
+          "durationMs": 3039,
+          "summary": "Validated structured output"
+        },
+        {
+          "role": "lookup",
+          "outcome": "complete",
+          "durationMs": 0,
+          "summary": "Owner-scoped read-only lookup round"
+        },
+        {
+          "role": "writer",
+          "outcome": "complete",
+          "durationMs": 5240,
+          "summary": "Validated structured output"
+        }
+      ],
+      "modelCalls": 2,
+      "latencyMs": 8286,
+      "requests": [
+        {
+          "role": "planner",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:47:12.254Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 3035
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-planner-v2.1",
+            "intent": "mutate",
+            "steps": [
+              {
+                "stepRef": "s1",
+                "kind": "shared_payment",
+                "sourceExcerpt": "Today I paid 600 rupees from Cash wallet for lunch; my share was zero, Arun owes 600.",
+                "status": "needs_lookup",
+                "requiresLookup": [
+                  "accounts",
+                  "contacts"
+                ],
+                "dependsOn": [],
+                "fieldHints": {
+                  "amountText": "600",
+                  "method": "Cash wallet",
+                  "dateText": "Today"
+                },
+                "unresolvedFields": [],
+                "clarificationQuestions": []
+              }
+            ],
+            "globalQuestions": [],
+            "unsupportedFragments": []
+          },
+          "durationMs": 3039
+        },
+        {
+          "role": "writer",
+          "structuralRepair": false,
+          "startedAt": "2026-11-06T19:47:15.297Z",
+          "transport": [
+            {
+              "category": "success",
+              "httpStatus": 200,
+              "apiStatus": null,
+              "message": null,
+              "retryAfter": null,
+              "retryDelay": null,
+              "retrySeconds": 0,
+              "quotaViolations": [],
+              "dailyQuota": false,
+              "requestId": null,
+              "durationMs": 5229
+            }
+          ],
+          "output": {
+            "schemaVersion": "2.1",
+            "promptVersion": "daybook-writer-v2.1",
+            "drafts": [
+              {
+                "stepRef": "s1",
+                "evidence": {
+                  "amount": "600",
+                  "date": "Today",
+                  "account": "Cash wallet",
+                  "method": "Cash wallet",
+                  "counterparty": "Arun",
+                  "target": null,
+                  "shares": "Arun owes 600",
+                  "personal": "zero",
+                  "destination": null,
+                  "due": null
+                },
+                "unresolvedFields": [],
+                "questions": [],
+                "kind": "shared_payment",
+                "fields": {
+                  "amountText": "600",
+                  "bookedOnText": "Today",
+                  "paymentMethod": "Cash",
+                  "accountAlias": "Cash wallet",
+                  "categoryHint": "lunch",
+                  "description": "lunch",
+                  "personalShareText": "zero",
+                  "shares": [
+                    {
+                      "contactAlias": "Arun",
+                      "amountText": "600"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rejectedSteps": []
+          },
+          "durationMs": 5235
+        }
+      ],
+      "validationDetails": [],
+      "outputHashes": [
+        {
+          "role": "planner",
+          "sha256": "9bd4115f4748a17d8259d697132183e39040071569cc8100dece90ba0e51d215"
+        },
+        {
+          "role": "writer",
+          "sha256": "6d6f5f05e3dfe6ef9cee572cc4b674ca721d89d0cc6fbdcb0fb805f775d6f5ba"
+        }
+      ]
+    }
+  ]
+}

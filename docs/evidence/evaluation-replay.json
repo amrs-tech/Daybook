@@ -1,6 +1,6 @@
 {
   "fixtureVersion": "daybook-eval-v2.1.1",
-  "generatedAt": "2026-11-06T14:08:47.257Z",
+  "generatedAt": "2026-11-06T19:46:13.622Z",
   "mode": "deterministic_fixture_replay",
   "modelId": "deterministic-fixture-replay-v1",
   "promptVersions": [
@@ -30,8 +30,8 @@
       "correct": 5,
       "denominator": 5
     },
-    "p50LatencyMs": 16,
-    "p95LatencyMs": 99,
+    "p50LatencyMs": 6,
+    "p95LatencyMs": 41,
     "sttAccuracy": null,
     "unsupportedAssumptionRate": null,
     "ledgerCorrectness": "See separately executed SQL/API integration tests; no financial mutation in this eval script"
@@ -54,7 +54,7 @@
       "mustClarify": true,
       "clarificationDetected": true,
       "criticalFieldsExact": true,
-      "latencyMs": 99,
+      "latencyMs": 41,
       "modelCalls": 2
     },
     {
@@ -70,7 +70,7 @@
       "mustClarify": false,
       "clarificationDetected": false,
       "criticalFieldsExact": true,
-      "latencyMs": 21,
+      "latencyMs": 24,
       "modelCalls": 2
     },
     {
@@ -86,7 +86,7 @@
       "mustClarify": true,
       "clarificationDetected": true,
       "criticalFieldsExact": null,
-      "latencyMs": 20,
+      "latencyMs": 11,
       "modelCalls": 2
     },
     {
@@ -104,7 +104,7 @@
       "mustClarify": true,
       "clarificationDetected": true,
       "criticalFieldsExact": null,
-      "latencyMs": 16,
+      "latencyMs": 6,
       "modelCalls": 2
     },
     {
@@ -120,7 +120,7 @@
       "mustClarify": true,
       "clarificationDetected": true,
       "criticalFieldsExact": null,
-      "latencyMs": 23,
+      "latencyMs": 11,
       "modelCalls": 2
     },
     {
@@ -132,8 +132,8 @@
       "mustClarify": true,
       "clarificationDetected": true,
       "criticalFieldsExact": null,
-      "latencyMs": 12,
-      "modelCalls": 2
+      "latencyMs": 4,
+      "modelCalls": 1
     },
     {
       "id": "E007",
@@ -144,8 +144,8 @@
       "mustClarify": false,
       "clarificationDetected": false,
       "criticalFieldsExact": null,
-      "latencyMs": 11,
-      "modelCalls": 2
+      "latencyMs": 3,
+      "modelCalls": 1
     },
     {
       "id": "E008",
@@ -160,7 +160,7 @@
       "mustClarify": false,
       "clarificationDetected": false,
       "criticalFieldsExact": null,
-      "latencyMs": 11,
+      "latencyMs": 4,
       "modelCalls": 2
     },
     {

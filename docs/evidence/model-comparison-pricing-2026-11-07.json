@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-06T20:11:02.695Z",
+  "url": "https://ai.google.dev/gemini-api/docs/pricing",
+  "ratesPerMillionTokensUSD": {
+    "gemini-3.6-flash": {
+      "input": 0.75,
+      "cachedInput": 0.075,
+      "outputIncludingThinking": 3.75,
+      "validThrough": "2026-12-31",
+      "from2027": {
+        "input": 1.5,
+        "cachedInput": 0.15,
+        "outputIncludingThinking": 7.5
+      }
+    },
+    "gemini-3.1-flash-lite": {
+      "input": 0.25,
+      "cachedInput": 0.025,
+      "outputIncludingThinking": 1.5
+    }
+  },
+  "basis": "Standard paid-tier equivalent for reported text token usage, not an actual billing invoice. Current API quota errors identify Free Tier.",
+  "routing": {
+    "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash",
+    "requestedModel": "gemini-3.5-flash",
+    "servedModelObserved": "gemini-3.6-flash",
+    "notice": "Google documents automatic routing from the deprecated 3.5 model ID to 3.6."
+  }
+}

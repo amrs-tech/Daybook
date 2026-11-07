@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-11-06T19:53:29.972Z",
+  "evidenceSource": "User-reported physical microphone transcription; audio was not independently inspected",
+  "status": "partial_pass",
+  "requestedSentence": "I spent 25 rupees using Cash from Cash wallet for test tea today.",
+  "reportedTranscript": "Spend ₹25 using cash from Cash Wallet for TestT today",
+  "checks": {
+    "recordingAndTranscriptionProducedText": "user_reported_pass",
+    "amount25RupeesPreserved": "user_reported_pass",
+    "cashMethodAndCashWalletPreserved": "user_reported_pass",
+    "descriptionTestTea": "earlier_transcript_differs_from_requested_script_actual_audio_not_inspected",
+    "completedEventWording": "earlier_transcript_differs_from_requested_script_actual_audio_not_inspected",
+    "pause": "user_reported_pass",
+    "stop": "user_reported_pass",
+    "cancel": "awaiting_confirmation",
+    "permissionDenial": "not_verified"
+  },
+  "action": "No correction is needed for the latest transcript. Review extracted amount, date and account before any approval. Cancel and permission-denial checks remain unconfirmed.",
+  "limitations": "User-reported observations and control results; not an overall speech accuracy benchmark. No ledger posting inferred.",
+  "lastUpdatedAt": "2026-11-06T19:55:17.439Z",
+  "requestedSentenceIsTestScriptNotIndependentlyVerifiedAudio": true,
+  "latestObservation": {
+    "evidenceSource": "Original wording and transcript supplied by the user; audio not independently inspected",
+    "reportedOriginalAudio": "I spent 25 rupees for drinking tea yesterday",
+    "reportedTranscript": "I spent twenty-five rupees for drinking tea yesterday",
+    "meaningPreserved": true,
+    "amountNormalization": "25 rupees and twenty-five rupees both parse to 2500 integer paise",
+    "parserCheck": "passed",
+    "semanticComparisonCheck": "passed",
+    "correctionNeededForThisTranscript": false
+  }
+}

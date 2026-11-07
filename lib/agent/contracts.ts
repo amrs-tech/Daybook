@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { requireThat } from "../errors";
+import { fieldHasEvidence, shareEvidenceQuote } from "./evidence";
 export const kinds = [
   "expense",
   "income",
@@ -283,23 +284,19 @@ export function validateWriter(
       const value = (d.fields as Record<string, unknown>)[field];
       if (typeof value === "string")
         requireThat(
-          !!(d.evidence as Record<string, string | null>)[evidence]?.includes(
+          fieldHasEvidence(
+            field,
             value,
+            (d.evidence as Record<string, string | null>)[evidence],
           ),
           `MISSING_FIELD_EVIDENCE:${field}`,
         );
     }
-    if (d.kind === "shared_payment")
-      for (const share of d.fields.shares as {
-        contactAlias: string;
-        amountText: string;
-      }[]) {
-        requireThat(
-          !!d.evidence.shares?.includes(share.contactAlias) &&
-            !!d.evidence.shares?.includes(share.amountText),
-          "MISSING_SPLIT_EVIDENCE",
-        );
-      }
+    if (d.kind === "shared_payment" && d.fields.shares.length > 0)
+      requireThat(
+        shareEvidenceQuote(d.evidence.shares ?? "", d.fields.shares) !== null,
+        "MISSING_SPLIT_EVIDENCE",
+      );
   }
   for (const r of writer.rejectedSteps) {
     requireThat(

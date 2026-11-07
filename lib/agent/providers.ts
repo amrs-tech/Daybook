@@ -2,6 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import OpenAI from "openai";
 import { DomainError } from "../errors";
+import { geminiResponseSchema } from "./gemini-schema";
 export type ModelRequest = {
   role: "planner" | "writer";
   system: string;
@@ -16,13 +17,18 @@ export interface ModelProvider {
 }
 export class GeminiProvider implements ModelProvider {
   modelId: string;
-  constructor() {
+  constructor(private readonly options: { fetch?: typeof fetch } = {}) {
     this.modelId = process.env.GEMINI_MODEL_ID ?? "";
   }
   async invoke(req: ModelRequest): Promise<unknown> {
     if (!process.env.GEMINI_API_KEY || !this.modelId)
       throw new DomainError("GEMINI_NOT_CONFIGURED", 503);
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+      httpOptions: this.options.fetch
+        ? { fetch: this.options.fetch }
+        : undefined,
+    });
     const payload = req.repair
       ? {
           ...(req.payload as object),
@@ -40,11 +46,11 @@ export class GeminiProvider implements ModelProvider {
         config: {
           systemInstruction: req.system,
           responseMimeType: "application/json",
-          responseJsonSchema: z.toJSONSchema(req.schema),
+          responseJsonSchema: geminiResponseSchema(req.schema),
           temperature: 0,
           maxOutputTokens: 8192,
           abortSignal: req.signal,
-          httpOptions: { timeout: 18000, retryOptions: { attempts: 1 } },
+          httpOptions: { timeout: 25000, retryOptions: { attempts: 1 } },
         },
       });
       if (!response.text) throw new DomainError("MODEL_REFUSED_OR_EMPTY", 502);
@@ -56,12 +62,34 @@ export class GeminiProvider implements ModelProvider {
     } catch (e) {
       if (e instanceof DomainError) throw e;
       const x = e as { status?: number; name?: string };
-      throw new DomainError(
+      const error = new DomainError(
         x.status === 429 || (x.status ?? 0) >= 500 || x.name === "AbortError"
           ? "GEMINI_TRANSIENT_FAILURE"
           : "GEMINI_REQUEST_FAILED",
         502,
       );
+      const safe = {
+        httpStatus: x.status ?? null,
+        kind:
+          x.status === 429
+            ? "rate_limit"
+            : x.status && x.status >= 500
+              ? "server_error"
+              : x.name === "AbortError"
+                ? "timeout"
+                : "request_error",
+      };
+      error.message =
+        x.status === 429
+          ? "The AI service quota is currently limited. Try again after the provider quota resets."
+          : error.code === "GEMINI_TRANSIENT_FAILURE"
+            ? "The AI service is temporarily unavailable. Retry the instruction; no ledger entry was posted."
+            : "The AI request could not be completed. Check the configured model and service access.";
+      Object.assign(error, {
+        providerFailure: safe,
+        retryAfterMs: x.status === 429 ? 60000 : 500,
+      });
+      throw error;
     }
   }
 }

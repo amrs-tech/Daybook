@@ -1,0 +1,230 @@
+{
+  "generatedAt": "2026-11-06T17:57:38.054Z",
+  "releaseReady": false,
+  "unit": {
+    "passed": 80,
+    "failed": 0
+  },
+  "integration": {
+    "passed": 50,
+    "failed": 0,
+    "pending": 0,
+    "includesIndependentPostgresRaces": true
+  },
+  "replayBrowser": {
+    "passed": 7,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "dependencyVulnerabilities": 0,
+  "database": {
+    "role": {
+      "current_user": "daybook_backend",
+      "rolsuper": false,
+      "rolbypassrls": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false
+    },
+    "adminTableAccess": "correctly_denied",
+    "restrictedRoleSwitch": true,
+    "rlsTableCount": 20,
+    "status": "passed"
+  },
+  "voiceSmoke": {
+    "status": "passed",
+    "fixture": "Windows synthetic speech, not human microphone",
+    "durationMs": 5809,
+    "text": "I spent ₹250 on groceries today from my everyday bank account",
+    "languageCode": "eng",
+    "provider": "elevenlabs",
+    "model": "scribe_v2",
+    "amountRecognized": true
+  },
+  "langfuse": {
+    "httpStatus": 200,
+    "totalObservations": 4,
+    "matched": [
+      {
+        "name": "daybook.writer",
+        "traceId": "79cae9230a6eb6b65eaee05a994e5f9b",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.lookup",
+        "traceId": "79cae9230a6eb6b65eaee05a994e5f9b",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.planner",
+        "traceId": "79cae9230a6eb6b65eaee05a994e5f9b",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.verification",
+        "traceId": "79cae9230a6eb6b65eaee05a994e5f9b",
+        "hasInput": false,
+        "hasOutput": false
+      }
+    ]
+  },
+  "liveEvaluation": {
+    "modelId": "gemini-3.1-flash-lite-preview",
+    "counts": {
+      "measured": 8,
+      "failed": 64,
+      "blocked": 0,
+      "notRun": 0
+    },
+    "metrics": {
+      "operationSequenceExact": {
+        "correct": 7,
+        "denominator": 8
+      },
+      "criticalFieldsExact": {
+        "correct": 0,
+        "denominator": 1
+      },
+      "clarificationRecall": {
+        "correct": 2,
+        "denominator": 3
+      },
+      "p50LatencyMs": 8316,
+      "p95LatencyMs": 13901,
+      "sttAccuracy": null,
+      "unsupportedAssumptionRate": null,
+      "ledgerCorrectness": "See separately executed SQL/API integration tests; no financial mutation in this eval script"
+    },
+    "errors": {
+      "UNVERIFIED_HINT": 9,
+      "UNVERIFIED_PLANNER_EVIDENCE": 1,
+      "INVALID_REJECTED_STEP": 5,
+      "MISSING_FIELD_EVIDENCE:paymentMethod": 7,
+      "UNVERIFIED_WRITER_EVIDENCE": 1,
+      "GEMINI_TRANSIENT_FAILURE": 41
+    }
+  },
+  "hostedVerification": {
+    "generatedAt": "2026-11-06T17:56:54.565Z",
+    "passed": 16,
+    "failed": 0,
+    "results": [
+      {
+        "name": "anonymous ledger denied",
+        "status": "passed"
+      },
+      {
+        "name": "wrong origin denied",
+        "status": "passed"
+      },
+      {
+        "name": "local authentication disabled",
+        "status": "passed"
+      },
+      {
+        "name": "Supabase user A signs in through browser",
+        "status": "passed"
+      },
+      {
+        "name": "Supabase user B signs in separately",
+        "status": "passed"
+      },
+      {
+        "name": "distinct owner workspaces and live configuration",
+        "status": "passed"
+      },
+      {
+        "name": "JSON and CSV exports",
+        "status": "passed"
+      },
+      {
+        "name": "user B cannot interpret user A source",
+        "status": "passed"
+      },
+      {
+        "name": "real Planner and Writer produce hosted draft",
+        "status": "passed",
+        "traceId": "d39a47ad6cd54fb6a2dba75ff2695031"
+      },
+      {
+        "name": "draft inaccessible to other user",
+        "status": "passed"
+      },
+      {
+        "name": "hosted preview is ready for explicit approval",
+        "status": "passed"
+      },
+      {
+        "name": "approval required by API",
+        "status": "passed"
+      },
+      {
+        "name": "approve synthetic expense and reread stored receipt",
+        "status": "passed"
+      },
+      {
+        "name": "repeated approval returns same receipt",
+        "status": "passed"
+      },
+      {
+        "name": "posted entry persists and stays isolated",
+        "status": "passed"
+      },
+      {
+        "name": "authenticated ElevenLabs upload and idempotent transcript",
+        "status": "passed"
+      }
+    ]
+  },
+  "manualMicrophoneVerification": "not_performed",
+  "deployment": "not_performed",
+  "hostedLangfuse": {
+    "status": "passed",
+    "httpStatus": 200,
+    "investigationId": "d39a47ad6cd54fb6a2dba75ff2695031",
+    "observations": [
+      {
+        "name": "daybook.writer",
+        "traceId": "6b03ed34706e2c3d2ef2e26bcae7cf28",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.lookup",
+        "traceId": "6b03ed34706e2c3d2ef2e26bcae7cf28",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.planner",
+        "traceId": "6b03ed34706e2c3d2ef2e26bcae7cf28",
+        "hasInput": false,
+        "hasOutput": false
+      },
+      {
+        "name": "daybook.agent",
+        "traceId": "6b03ed34706e2c3d2ef2e26bcae7cf28",
+        "hasInput": false,
+        "hasOutput": false
+      }
+    ]
+  },
+  "releaseBlockers": [
+    "Live 72-case AI evaluation: 64 failed; 8 completed with additional metric mismatches.",
+    "Human microphone capture/permissions and labeled real-speech evaluation have not been exercised."
+  ],
+  "configurationChanges": [
+    "Encoded and quoted reserved characters in the database URL.",
+    "Applied all three migrations to the empty dedicated Supabase project.",
+    "Created daybook_backend without superuser, bypass-RLS, role creation or database creation privileges.",
+    "Changed the app connection from administrator to daybook_backend.",
+    "Created an isolated race-test database; its connection is stored in ignored .env.verification-admin.local."
+  ],
+  "codeChanges": [
+    "Added Gemini response-schema projection; server-side Zod limits/evidence validation are preserved.",
+    "Added three schema compatibility regression tests."
+  ]
+}

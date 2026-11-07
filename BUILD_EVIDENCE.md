@@ -1,5 +1,7 @@
 # DayBook v2.1 build evidence
 
+> Historical snapshot. Current fixes and verification: [7 November fix report](docs/FIX_VERIFICATION_2026_11_07.md). Results below are preserved from their original run.
+
 **Status: local implementation complete enough for deterministic review; public release blocked.** No existing repository was provided. This is a new standalone implementation based only on the current chat's pasted instruction and v2.1 contract. It is not a certified upgrade of prior financial code.
 
 ## Implementation

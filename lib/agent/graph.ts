@@ -10,6 +10,7 @@ import {
   lookupKinds,
   PlannerSchema,
   WriterSchema,
+  DraftSchema,
   validatePlanner,
   validateWriter,
   type PlannerOutput,
@@ -17,8 +18,12 @@ import {
 } from "./contracts";
 import type { ModelProvider, ModelRequest } from "./providers";
 import { OpenAIProvider } from "./providers";
-import { SYSTEM_PROMPT as plannerPrompt } from "./prompts/planner-v2.1";
-import { SYSTEM_PROMPT as writerPrompt } from "./prompts/writer-v2.1";
+import {
+  plannerSystem as plannerPrompt,
+  writerSystem as writerPrompt,
+  EXECUTION_REVISION,
+} from "./prompts/execution-v2.2";
+import { groundPlanner, groundWriter } from "./grounding";
 import { traced } from "../observability/langfuse";
 export type Event = {
   role: string;
@@ -52,10 +57,11 @@ export async function runAgents(
     repairs = 0;
   const started = Date.now(),
     modelsUsed: { planner?: string; writer?: string } = {},
-    signal = AbortSignal.timeout(45000);
-  const invoke = async (req: ModelRequest) => {
+    signal = AbortSignal.timeout(50000);
+  let transientRetries = 0;
+  const invoke = async (req: ModelRequest): Promise<unknown> => {
     requireThat(
-      ++calls <= 3 && Date.now() - started < 45000,
+      ++calls <= 3 && Date.now() - started < 50000,
       "MODEL_BUDGET_EXCEEDED",
       503,
     );
@@ -73,7 +79,21 @@ export async function runAgents(
         process.env.OPENAI_MODEL_ID
           ? new OpenAIProvider()
           : undefined);
-      if (!eligible || !selected) throw e;
+      if (!eligible) throw e;
+      if (!selected) {
+        const retryAfterMs =
+          (e as DomainError & { retryAfterMs?: number }).retryAfterMs ?? 500;
+        if (
+          transientRetries >= 1 ||
+          calls >= 3 ||
+          retryAfterMs > 1500 ||
+          Date.now() - started + retryAfterMs > 35000
+        )
+          throw e;
+        transientRetries++;
+        await new Promise((resolve) => setTimeout(resolve, retryAfterMs));
+        return invoke(req);
+      }
       requireThat(
         ++calls <= 3 && Date.now() - started < 35000,
         "MODEL_BUDGET_EXCEEDED",
@@ -94,14 +114,44 @@ export async function runAgents(
     payload: Record<string, unknown>,
     plan?: PlannerOutput,
   ): Promise<PlannerOutput | WriterOutput> {
-    const schema = role === "planner" ? PlannerSchema : WriterSchema,
+    const sourceChoices = [
+      ...new Set(
+        [
+          input.confirmedText,
+          ...input.confirmedText.split(/(?<=[.!?;])\s+/),
+        ].filter(Boolean),
+      ),
+    ] as [string, ...string[]];
+    const constrainedPlanner = PlannerSchema.extend({
+      steps: z
+        .array(
+          PlannerSchema.shape.steps.element.extend({
+            sourceExcerpt: z.enum(sourceChoices),
+          }),
+        )
+        .max(20),
+    });
+    const schema = role === "planner" ? constrainedPlanner : WriterSchema,
       system = role === "planner" ? plannerPrompt : writerPrompt;
     let raw: unknown;
     try {
       raw = await invoke({ role, system, payload, schema });
       return role === "planner"
-        ? validatePlanner(raw, input.confirmedText)
-        : validateWriter(raw, plan!, input.confirmedText);
+        ? validatePlanner(
+            groundPlanner(raw, input.confirmedText),
+            input.confirmedText,
+          )
+        : validateWriter(
+            groundWriter(
+              raw,
+              input.confirmedText,
+              plan!,
+              input.referenceInstant,
+              input.context.timezone,
+            ),
+            plan!,
+            input.confirmedText,
+          );
     } catch (e) {
       // Only structural errors may be repaired. Semantic evidence errors never get guessed away.
       if (
@@ -121,8 +171,21 @@ export async function runAgents(
           repair: { codes, previous: raw ?? null },
         });
         return role === "planner"
-          ? validatePlanner(raw, input.confirmedText)
-          : validateWriter(raw, plan!, input.confirmedText);
+          ? validatePlanner(
+              groundPlanner(raw, input.confirmedText),
+              input.confirmedText,
+            )
+          : validateWriter(
+              groundWriter(
+                raw,
+                input.confirmedText,
+                plan!,
+                input.referenceInstant,
+                input.context.timezone,
+              ),
+              plan!,
+              input.confirmedText,
+            );
       }
       throw e;
     }
@@ -133,7 +196,7 @@ export async function runAgents(
       const result = await traced(
         role,
         input.traceId,
-        { modelId: provider.modelId, promptVersion: `daybook-${role}-v2.1` },
+        { modelId: provider.modelId, promptVersion: EXECUTION_REVISION },
         fn,
       );
       events.push({
@@ -141,9 +204,11 @@ export async function runAgents(
         outcome: "complete",
         durationMs: Date.now() - t,
         summary:
-          role === "lookup"
-            ? "Owner-scoped read-only lookup round"
-            : "Validated structured output",
+          role === "writer" && !modelsUsed.writer
+            ? "No mutation steps; no Writer model invocation"
+            : role === "lookup"
+              ? "Owner-scoped read-only lookup round"
+              : "Validated structured output",
       });
       return result;
     } catch (e) {
@@ -181,18 +246,35 @@ export async function runAgents(
     }))
     .addNode("writer_agent", async (state) => ({
       writer: (await node("writer", () =>
-        callValidated(
-          "writer",
-          {
-            ...payload,
-            verifiedPlannerSteps: state.planner,
-            allowedDraftKinds: kinds.filter((k) => k !== "query"),
-            allowedFormFieldsByKind: z.toJSONSchema(WriterSchema),
-            lookupResults: state.lookups,
-            confirmedDefaults: input.context.defaults,
-          },
-          state.planner,
-        ),
+        state.planner.steps.every((step) => step.kind === "query")
+          ? Promise.resolve({
+              schemaVersion: "2.1",
+              promptVersion: "daybook-writer-v2.1",
+              drafts: [],
+              rejectedSteps: [],
+            })
+          : callValidated(
+              "writer",
+              {
+                ...payload,
+                verifiedPlannerSteps: {
+                  ...state.planner,
+                  steps: state.planner.steps.filter(
+                    (step) => step.kind !== "query",
+                  ),
+                },
+                allowedDraftKinds: kinds.filter((k) => k !== "query"),
+                allowedFormFieldsByKind: Object.fromEntries(
+                  DraftSchema.options.map((option) => [
+                    option.shape.kind.value,
+                    Object.keys(option.shape.fields.shape),
+                  ]),
+                ),
+                lookupResults: state.lookups,
+                confirmedDefaults: input.context.defaults,
+              },
+              state.planner,
+            ),
       )) as WriterOutput,
     }))
     .addEdge(START, "planner_agent")
@@ -203,7 +285,7 @@ export async function runAgents(
   try {
     const result = await graph.invoke(
       {},
-      { recursionLimit: 8, signal: AbortSignal.timeout(48000) },
+      { recursionLimit: 8, signal: AbortSignal.timeout(52000) },
     );
     return {
       ...result,
@@ -212,6 +294,8 @@ export async function runAgents(
       modelId: provider.modelId,
       plannerModelId: modelsUsed.planner,
       writerModelId: modelsUsed.writer,
+      executionRevision: EXECUTION_REVISION,
+      transientRetries,
     };
   } catch (e) {
     Object.assign(e instanceof Error ? e : new Error("Agent failed"), {

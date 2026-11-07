@@ -83,12 +83,24 @@ export function normalizeDrafts(
       });
     if (d.unresolvedFields.length) {
       issues.push(
-        ...d.unresolvedFields.map((field) => ({
-          stepRef: d.stepRef,
-          field,
-          code: "NEEDS_CLARIFICATION",
-          message: d.questions.join(" ") || `Confirm ${field}.`,
-        })),
+        ...d.unresolvedFields
+          .filter(
+            (field) =>
+              ![
+                "paymentMethod",
+                "categoryHint",
+                "description",
+                ...(d.kind === "create_bill"
+                  ? ["accountAlias", "counterpartyAlias"]
+                  : []),
+              ].includes(field),
+          )
+          .map((field) => ({
+            stepRef: d.stepRef,
+            field,
+            code: "NEEDS_CLARIFICATION",
+            message: d.questions.join(" ") || `Confirm ${field}.`,
+          })),
       );
     }
     let currentField = "bookedOnText";
